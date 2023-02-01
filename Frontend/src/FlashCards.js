@@ -5,6 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
+
 const Cards = () =>{
   return(
     <div>
@@ -22,6 +23,9 @@ const useStyles = () => ({
   cardContent: {
     textAlign: "center",
   },
+  carouselContainer: {
+    width: 100,
+   }
 
 });
 
@@ -37,6 +41,7 @@ const ActionAreaCard = () =>{
   }, []); */
 
   return (
+    <div>
     <Card /* sx={{ maxWidth: 345 }} */ className={classes.root}>
       <CardActionArea>
         <CardMedia
@@ -56,6 +61,7 @@ const ActionAreaCard = () =>{
         </CardContent>
       </CardActionArea>
     </Card>
+    </div>
   );
 }
 
