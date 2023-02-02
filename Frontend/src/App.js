@@ -1,18 +1,24 @@
 import React from "react";
+import {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import LoginForm from "./LoginForm";
 
 
 const App = () =>{
+    const [isShowLogin, setIsShowLogin] = useState(true);
+    const handleLoginClick = () => {
+        setIsShowLogin((isShowLogin) => !isShowLogin);
+    };
     return (
-        <div>
-            <Ribbon />
+        <>
+            <Ribbon handleLoginClick={handleLoginClick} />
+            <LoginForm isShowLogin={isShowLogin} />
             <div style={{ height :60 }}></div>
-            {/* <Cards /> */}
-        </div>
+        </>
     )
 }
 const useStyles = makeStyles((theme) => ({
@@ -37,13 +43,18 @@ const useStyles = makeStyles((theme) => ({
         width: 55,
         height: 55,
         marginRight: theme.spacing(2),
+        cursor: "pointer",
       },
   }));
 
 
-const Ribbon = () =>{
+const Ribbon = ({ handleLoginClick }) =>{
     const classes = useStyles();
   
+    const handleClick = () =>{
+        handleLoginClick()
+    }
+
     return (
       <div className={classes.root}>
         <AppBar /* style={{ background: "#7FDBFF" }} */>
@@ -53,7 +64,7 @@ const Ribbon = () =>{
               Pawsitively Well!
             </Typography>
             {/* <Typography variant="subtitle1" className={classes.subtitle}>The purrrfect app for your pupper!</Typography> */}
-            <Avatar className={classes.userIcon} src="/broken-image.jpg"></Avatar>
+            <Avatar className={classes.userIcon} onClick={handleClick} src="/broken-image.jpg"></Avatar>
           </Toolbar>
         </AppBar>
       </div>

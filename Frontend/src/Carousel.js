@@ -22,7 +22,7 @@ function Slide() {
           object-fit= "cover"
           margin-left= "auto"
           margin-right="auto"
-          display="block"
+          display="flex"
           src="./images/feeding-dog.jpg"
             alt="Feeding Dog"
           />
@@ -41,7 +41,7 @@ function Slide() {
           margin-right="auto"
           height= "300px"
           object-fit= "cover"
-          display="block"
+          display="flex"
             alt="Feeding Dog"
           />
          <h5>
@@ -58,7 +58,7 @@ function Slide() {
           margin-right="auto"
           height= "300px"
           object-fit= "cover"
-          display="block"
+          display="flex"
             alt="Feeding Dog"
           />
           <h5>
