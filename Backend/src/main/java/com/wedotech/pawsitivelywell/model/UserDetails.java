@@ -3,21 +3,20 @@ package com.wedotech.pawsitivelywell.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="user_details")
 public class UserDetails implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -40,11 +39,8 @@ public class UserDetails implements Serializable{
 	private String EmailId;
 	@Column(name="Password")
 	private String Password;
-	/*
-	 * @Column(name="Dogs")
-	 * 
-	 * @ElementCollection(targetClass=String.class) private List<String> Dogs;
-	 */
+	@OneToMany(mappedBy="userDetails", cascade= CascadeType.DETACH, fetch = FetchType.EAGER)
+	private List<DogDetails> Dogs;
 	
 	public UserDetails() {
 		
@@ -90,11 +86,15 @@ public class UserDetails implements Serializable{
 		this.Password = password;
 	}
 
-	/*
-	 * public List<String> getDogs() { return Dogs; }
-	 * 
-	 * public void setDogs(List<String> dogs) { Dogs = dogs; }
-	 */
+	public List<DogDetails> getDogs() {
+		return Dogs;
+	}
+
+	public void setDogs(List<DogDetails> dogs) {
+		Dogs = dogs;
+	}
+
+	
 	
 	
 

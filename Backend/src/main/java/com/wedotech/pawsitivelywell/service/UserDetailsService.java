@@ -7,4 +7,6 @@ public interface UserDetailsService {
 
 	boolean validateLogin(String emailId, String password);
 
+	boolean createUser(String firstName, String lastName, String emailId, String password);
+
 }

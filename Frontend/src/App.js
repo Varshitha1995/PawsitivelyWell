@@ -6,14 +6,21 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import BCarousel from "./BCarousel";
-import { Icon, Menu } from "semantic-ui-react";
 import LoginForm from "./LoginForm";
+import {
+  Navbar,
+  NavDropdown,
+  MenuItem,
+  NavItem,
+  Nav,
+  Popover,
+  Tooltip,
+  Button,
+  Modal,
+  OverlayTrigger
+} from 'react-bootstrap';
 
 const App = () => {
-  const [isShowLogin, setIsShowLogin] = useState(true);
-  const handleLoginClick = () => {
-        setIsShowLogin((isShowLogin) => !isShowLogin);
-  };
   return (
     <div>
       <Ribbon />
@@ -51,6 +58,20 @@ const useStyles = makeStyles((theme) => ({
 
 const Ribbon = () => {
   const classes = useStyles();
+
+  const [showModal, setShowModal] = useState(false);
+  const close = () => {
+    setShowModal((showModal) => !showModal)
+    // this.setState ({ showModal: false });
+  }
+  const open = () => {
+    setShowModal((showModal) => !showModal)
+    // this.setState ({ showModal : true});
+  }
+  // const isLoggedIn = this.state.isLoggedIn;
+
+
+
   const [isShowLogin, setIsShowLogin] = useState(true);
   const handleLoginClick = () => {
         setIsShowLogin((isShowLogin) => !isShowLogin);
@@ -78,12 +99,12 @@ const Ribbon = () => {
             <Menu.Item name="friends" />
           </Menu> */}
           {/* <Typography variant="subtitle1" className={classes.subtitle}>The purrrfect app for your pupper!</Typography> */}
-          <Avatar className={classes.userIcon} onClick={handleClick} src="/broken-image.jpg"></Avatar>
-
+          <Avatar className={classes.userIcon} onClick={open} src="/broken-image.jpg"></Avatar>
+          <LoginForm showModal={showModal} onClose = {close} />
           {/* <Icon fitted name="user" /> */}
         </Toolbar>
       </AppBar>
-      <LoginForm isShowLogin={isShowLogin} />
+      {/* <LoginForm isShowLogin={isShowLogin} /> */}
       <div>
         <BCarousel />
         <div
