@@ -9,7 +9,7 @@ function BCarousel() {
           className="d-block"
           src="./images/feeding-dog.jpg"
           height={500}
-          width={1500}
+          width="100%"
           alt="First slide"
         />
         <Carousel.Caption>
@@ -24,7 +24,7 @@ function BCarousel() {
           className="d-block"
           src="./images/feeding-dog.jpg"
           height={500}
-          width={1500}
+          width="100%"
           alt="Second slide"
         />
         <Carousel.Caption>
@@ -39,7 +39,7 @@ function BCarousel() {
           className="d-block"
           src="./images/feeding-dog.jpg"
           height={500}
-          width={1500}
+          width="100%"
           alt="Third slide"
         />
         <Carousel.Caption>

@@ -36,6 +36,7 @@ label {
   
   .login-box{
     border: 1px solid lightgrey;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;

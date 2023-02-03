@@ -1,7 +1,10 @@
 import React from "react";
-import reactDom from "react-dom";
+import ReactDOM from "react-dom";
 import App from "./src/App";
-import Slide from "./src/Carousel";
 
-reactDom.render(<App />, document.getElementById("root"));
-reactDom.render(<Slide />, document.getElementById("info"));
+const container = document.getElementById("root");
+const root = ReactDOM.createRoot(container);
+root.render(<App />);
+
+// reactDom.render(<App />, document.getElementById("root"));
+// reactDom.render(<C />, document.getElementById("info"));
