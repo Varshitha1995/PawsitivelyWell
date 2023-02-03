@@ -7,26 +7,12 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import BCarousel from "./BCarousel";
 import LoginForm from "./LoginForm";
-import {
-  Navbar,
-  NavDropdown,
-  MenuItem,
-  NavItem,
-  Nav,
-  Popover,
-  Tooltip,
-  Button,
-  Modal,
-  OverlayTrigger
-} from 'react-bootstrap';
 
 const App = () => {
   return (
     <div>
       <Ribbon />
-      {/* <LoginForm isShowLogin={isShowLogin} /> */}
       <div style={{ height: 60 }}></div>
-      {/* <Cards /> */}
     </div>
   );
 };
@@ -62,24 +48,11 @@ const Ribbon = () => {
   const [showModal, setShowModal] = useState(false);
   const close = () => {
     setShowModal((showModal) => !showModal)
-    // this.setState ({ showModal: false });
   }
   const open = () => {
     setShowModal((showModal) => !showModal)
-    // this.setState ({ showModal : true});
   }
-  // const isLoggedIn = this.state.isLoggedIn;
 
-
-
-  const [isShowLogin, setIsShowLogin] = useState(true);
-  const handleLoginClick = () => {
-        setIsShowLogin((isShowLogin) => !isShowLogin);
-  };
-
-  const handleClick = () =>{
-    handleLoginClick()
-  }
 
   return (
     <div className={classes.root}>
@@ -104,7 +77,6 @@ const Ribbon = () => {
           {/* <Icon fitted name="user" /> */}
         </Toolbar>
       </AppBar>
-      {/* <LoginForm isShowLogin={isShowLogin} /> */}
       <div>
         <BCarousel />
         <div
