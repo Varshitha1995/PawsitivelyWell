@@ -44,11 +44,15 @@
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "ajv": "^8.11.0",
+    "bootstrap": "^5.2.3",
     "html-webpack-plugin": "^5.5.0",
     "infinite-react-carousel": "^1.2.11",
     "less-loader": "^11.1.0",
     "path": "^0.12.7",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-bootstrap": "^2.7.0",
+    "react-dom": "^18.2.0",
+    "semantic-ui-css": "^2.5.0",
+    "semantic-ui-react": "^2.1.4"
   }
 }
