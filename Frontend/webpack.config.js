@@ -27,7 +27,8 @@ module.exports={
         /** "filename"
          * the name of the output file 
          */
-        filename: "main.js"
+        filename: "main.js",
+        publicPath: "/"
     },
     /** "target"
      * setting "node" as target app (server side), and setting it as "web" is 
@@ -46,7 +47,7 @@ module.exports={
         /** "open" 
          * opens the browser after server is successfully started
         */
-        open: true,
+        open: false,
         /** "hot"
          * enabling and disabling HMR. takes "true", "false" and "only". 
          * "only" is used if enable Hot Module Replacement without page 
@@ -56,7 +57,8 @@ module.exports={
         /** "liveReload"
          * disable live reload on the browser. "hot" must be set to false for this to work
         */
-        liveReload: true
+        liveReload: true,
+        historyApiFallback: true,
     },
     resolve: {
         /** "extensions" 

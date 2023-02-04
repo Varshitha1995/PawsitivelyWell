@@ -3,6 +3,7 @@ import {Modal} from "react-bootstrap";
 import axios from "axios";
 import * as EmailValidator from 'email-validator';
 import "./loginStyles.css";
+import { withRouter } from "./withRouter";
 
 class LoginForm extends React.Component {
   constructor() {
@@ -17,6 +18,7 @@ class LoginForm extends React.Component {
       invalidMsg: false,
       validEmail:true
     };
+    
   }
 
 
@@ -59,6 +61,7 @@ class LoginForm extends React.Component {
         if(response.data){
             console.log("Login success")
             this.setValidSession(true)
+            this.props.navigate('/dashboard')
         }else{
           console.log("Login failed")
           this.setValidSession(false)
@@ -94,7 +97,7 @@ handleRegister = (event) => {
         if(response.data){
             console.log("Register success")
             this.setValidSession(true)
-            this.setMode("login");
+            // this.setMode("login");
         }else{
           console.log("Register failed")
           this.setValidSession(false)
@@ -191,6 +194,9 @@ handleRegister = (event) => {
 
             {this.state.invalidMsg && <div>
               <span className="alert">EmailId already exists!</span>
+              </div>}
+              {this.state.validSession && <div>
+              <span className="success-alert">User Account Created! Please LogIn</span>
               </div>}
           </form>
         
@@ -293,4 +299,4 @@ handleRegister = (event) => {
   }
 }
 
-export default LoginForm;
+export default withRouter(LoginForm);
