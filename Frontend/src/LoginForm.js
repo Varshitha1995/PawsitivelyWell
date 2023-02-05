@@ -286,9 +286,10 @@ handleRegister = (event) => {
           show={this.props.showModal}
           onHide={this.props.onClose}
           onSubmit={this.onSubmit}
+          className="loginBox"
         >
-          <Modal.Header closeButton={true}>
-            <h2>{ this.state.mode === "login" ? "Login" : "Register" }</h2>
+          <Modal.Header closeButton={true} className="modalHeader">
+            <h3>{ this.state.mode === "login" ? "Login" : "Register" }</h3>
           </Modal.Header>
           <Modal.Body>
             {this.state.mode === "login" ? (this.renderLogin()) : (this.renderRegister())}
