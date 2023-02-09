@@ -1,0 +1,23 @@
+root {
+    flex-grow: 1;
+    position: "sticky";
+  }
+  appName {
+    flex-grow: 1;
+    margin-left: 2%;
+    color: "#001F3F";
+  }
+  subtitle {
+    flex-grow: 1;
+    margin-left: 1%;
+    margin-right: 4%;
+  }
+  userIcon {
+    margin: 1%;
+    cursor: "pointer";
+  }
+  logo {
+    width: 5vh;
+    height: 5vh;
+    margin-right: 2%;
+  }
