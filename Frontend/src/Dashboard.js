@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import React from "react";
-import LoginForm from "./LoginForm";
-import "./Dashboard.css"
+import "./Dashboard.css";
+import "./sidebar.css"
+import { AiFillHome, AiFillInfoCircle, AiFillMail, AiFillSetting } from "react-icons/ai";
 
 class Dashboard extends React.Component {
   constructor() {
@@ -22,7 +22,7 @@ class Dashboard extends React.Component {
   } */
     return (
       <>
-      <div className="root">
+       <div className="root">
         <AppBar /* style={{ background: "#7FDBFF" }} */>
         <Toolbar>
           <img
@@ -47,7 +47,43 @@ class Dashboard extends React.Component {
         </Toolbar>
       </AppBar>
       </div>
-      <div style={{ marginTop: '10vh' }}><h4> Welcome to your dashboard! </h4></div>
+      <div className="vertical-menu">
+        <a id="Food-Tracking" href="/">
+        <Avatar src="./logo-no-background.png" style={{marginLeft:'32%', cursor:'pointer', marginTop:'10%'}}></Avatar>
+         Food Tracking
+        </a>
+        <a id="Activity-Tracking" href="/about">
+        <Avatar src="./logo-no-background.png" style={{marginLeft:'32%', cursor:'pointer', marginTop:'10%'}}></Avatar> Activity tracking
+        </a>
+        <a id="Medicine-And-Vaccine-Tracking"  href="/contact">
+        <Avatar src="./logo-no-background.png" style={{marginLeft:'32%', cursor:'pointer', marginTop:'10%'}}></Avatar>Medicine And Vaccine Tracking
+        </a>
+        <a id="Grooming-Tracking" href="">
+        <Avatar src="./logo-no-background.png" style={{marginLeft:'32%', cursor:'pointer', marginTop:'10%'}}></Avatar> Grooming Tracking
+        </a>
+        <a id="Information" href="">
+        <Avatar src="./logo-no-background.png" style={{marginLeft:'32%', cursor:'pointer', marginTop:'10%'}}></Avatar> Information
+        </a>
+      </div>
+      <div className="vertical-menu-right">
+        <a id="home" href="/">
+        <Avatar src="/broken-image.jpg" style={{marginLeft:'32%', cursor:'pointer', marginTop:'10%'}}></Avatar> Pet-1
+        </a>
+        <a id="about" href="/about">
+        <Avatar src="/broken-image.jpg" style={{marginLeft:'32%', cursor:'pointer', marginTop:'10%'}}></Avatar>Pet-2
+        </a>
+        <a id="contact"  href="/contact">
+        <Avatar src="/broken-image.jpg" style={{marginLeft:'32%', cursor:'pointer', marginTop:'10%'}}></Avatar> Pet-3
+        </a>
+        <a id="settings" href="">
+        <Avatar src="/broken-image.jpg" style={{marginLeft:'32%', cursor:'pointer', marginTop:'10%'}}></Avatar>Pet-4
+        </a>
+      </div>
+      <div className="center-page">
+        <a>
+          Hey There
+        </a>
+      </div>
       </>
     );
   }

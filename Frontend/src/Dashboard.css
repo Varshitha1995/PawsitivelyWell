@@ -1,4 +1,5 @@
 root {
+  
     flex-grow: 1;
     position: "sticky";
   }
@@ -21,3 +22,4 @@ root {
     height: 5vh;
     margin-right: 2%;
   }
+  
