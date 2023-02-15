@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   appName: {
     flexGrow: 1,
     marginLeft: theme.spacing(2),
-    color: "#001F3F",
+    color: "white",
   },
   subtitle: {
     flexGrow: 1,

@@ -5,46 +5,87 @@
   }
 
   .vertical-menu {
-    width: 15vh;
-    margin-top: -6vh;
-    overflow: auto;
+    width: 13%;
+    margin-top: 6vh;
+    overflow-y: scroll;
     float: left;
     height: 100vh;
-    background-color: #eee;
+    background-color: rgb(201, 224, 242);
     text-align: center;
+    flex-grow: 1;
+    position: sticky;
+    font-weight: bold;
 
   }
   .vertical-menu-right{
-    width: 15vh;
+    width: 15%;
+    margin-top: 10vh;
     overflow: auto;
-    margin-top: -4vh;
     height: 100vh;
-    background-color: #eee;
+    background-color: white;
     float: right;
     text-align: center;
+    flex-grow: 1;
+    position: sticky;
+    flex-grow: 1;
+    font-weight: bold;
+    margin-right: 1vh;
   }
 
  .vertical-menu a {
     color: black;
     display: block;
     text-decoration: none;
-    padding-top: 4vh;
+    padding-top: 2vh;
   }
   .vertical-menu a:hover {
     background-color: #ccc;
+  }
+
+  .vertical-menu a:active {
+    background-color: rgb(71, 16, 236);
   }
 
   .vertical-menu-right a {
     color: black;
     display: block;
     text-decoration: none;
-    padding-top: 2vh;
+    align-content: center;
+    overflow: hidden;
   }
   .vertical-menu-right a:hover {
     background-color: #ccc;
   }
 
+  .vertical-menu-right a:active {
+    border: 3px solid #001F3F;
+    background-color: rgb(71, 16, 236);
+  }
+
   .center-page{
-    display: block;
-    margin-top: 11vh;
+    padding-top: 10vh;
+    display: inline-block;
+    position: sticky;
+    width: 65%;
+    flex-grow: 1;
+  }
+
+  .leftIcon{
+    padding: 5%;
+    margin: 10%;
+    cursor: pointer;
+    margin-top: 10%;
+    height: 100%;
+    width: 100%;
+    border: 3px solid #001F3F;
+    background-color: white;
+  }
+
+  .rightIcon{
+    padding: 5%;
+    margin: 10%;
+    cursor: pointer;
+    margin-top: 10%;
+    height: 100%;
+    width: 100%;
   }

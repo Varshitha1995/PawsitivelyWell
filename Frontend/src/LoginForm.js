@@ -61,7 +61,7 @@ class LoginForm extends React.Component {
         if(response.data){
             console.log("Login success")
             this.setValidSession(true)
-            this.props.navigate('/dashboard')
+            this.props.navigate('/dashboard', {state:{validSession: this.state.validSession, emailId: event.target.form[1].value}})
         }else{
           console.log("Login failed")
           this.setValidSession(false)
