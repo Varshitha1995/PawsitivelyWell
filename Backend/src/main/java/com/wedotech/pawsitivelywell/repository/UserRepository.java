@@ -12,4 +12,8 @@ public interface UserRepository extends JpaRepository<UserDetails, Long>{
 
 	@Query("select u from UserDetails u where u.EmailId = (:emailId)")
 	UserDetails getUser(@Param("emailId") String emailId);
+	
+	@Query("select u.user_id from UserDetails u where u.EmailId = (:emailId)")
+	Long getUserId(@Param("emailId") String emailId);
+
 }
