@@ -1,0 +1,36 @@
+.alert{
+  font-size:2vh;
+  color:#f00;
+  margin-top: 1vh;
+}
+.success-alert{
+  font-size:2vh;
+  color:rgb(6, 125, 0);
+  margin-top: 1vh;
+}
+
+.loginBox{
+  margin-top: 6vh;
+}
+
+.modalHeader{
+  height: 7vh;
+}
+
+.col-sm-5{
+  font-weight: bold;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+}
+
+.btn{
+  margin-left: 1.5vh;
+  margin-bottom: 1vh;
+}
+
+fieldset{
+  margin-top: -2.5vh;
+}
+h3{
+  padding-top: 2vh;
+}
