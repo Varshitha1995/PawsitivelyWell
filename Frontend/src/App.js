@@ -1,5 +1,5 @@
 import React from "react";
-import {useState} from 'react';
+import { useState } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -29,7 +29,15 @@ const useStyles = makeStyles((theme) => ({
   subtitle: {
     flexGrow: 1,
     marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(4),
+    marginRight: theme.spacing(1),
+    paddingTop: "2vh",
+    fontSize: "3vw",
+    fontWeight: "600",
+    // color: "#3f51b5",
+    //color: "#7FDBFF",
+    color: "darkblue",
+    textAlign: "center",
+    opacity: "1.0",
   },
   userIcon: {
     margin: theme.spacing(1),
@@ -56,7 +64,7 @@ const Ribbon = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar /* style={{ background: "#7FDBFF" }} */>
+      <AppBar>
         <Toolbar>
           <img
             src="./logo-no-background.png"
@@ -66,72 +74,24 @@ const Ribbon = () => {
           <Typography variant="h6" className={classes.appName}>
             Pawsitively Well!
           </Typography>
-          {/* <Menu secondary>
-            <Menu.Item name="home" />
-            <Menu.Item name="messages" />
-            <Menu.Item name="friends" />
-          </Menu> */}
-          {/* <Typography variant="subtitle1" className={classes.subtitle}>The purrrfect app for your pupper!</Typography> */}
           <Avatar className={classes.userIcon} onClick={open} src="/broken-image.jpg"></Avatar>
-          <LoginForm showModal={showModal} onClose = {close} />
-          {/* <Icon fitted name="user" /> */}
+          <LoginForm showModal={showModal} onClose={close} />
         </Toolbar>
       </AppBar>
       <div>
         <BCarousel />
-        <div
-          style={{
-            marginLeft: "20%",
-            marginRight: "20%",
-            marginTop: 50,
-            marginBottom: 50,
-          }}
-        >
-          <div
-            className="ui segment"
-            style={{ backgroundColor: "rgb(223, 208, 226)" }}
-          >
-            <h1 className="ui header">100% Satisfaction Guarantee</h1>
-            As a brand with integrity, Loyall® Signature is truly confident in
-            the quality of the products we carefully craft. Customer <br />
-            satisfaction is of utmost importance to our brand, therefore we
-            guarantee 100% satisfaction to ensure that you and your pet will be{" "}
-            <br />
-            delighted with your purchase. If for any reason you are not 100%
-            satisfied, we will refund your purchase. Go ahead and try Loyall®
-            Signature today.
-          </div>
-          <div
-            className="ui segment"
-            style={{ backgroundColor: "rgb(201, 224, 242)" }}
-          >
-            <h1 className="ui header">Excellence in Nutrition</h1>
-            Our top-notch nutrition team utilizes ingredient knowledge collected
-            from over 100 years of animal nutrition expertise. Our formulas are{" "}
-            <br />
-            designed in-house and supported by cutting-edge industry research.
-            With Loyall® Signature you get the full package science, <br />
-            industry-leading technology and passion, with the commitment to
-            always do the right thing.
-          </div>
-          <div
-            className="ui segment"
-            style={{ backgroundColor: "rgb(196, 221, 218)" }}
-          >
-            <h1 className="ui header">Our Values</h1>
-            We are driven by the passion of the bond developed between you and
-            your pet. This bond exemplifies the impressive and unique connection{" "}
-            <br />
-            that exists between a person and their pet. We see the importance of
-            this bond that can be understood through simple gestures, such as a{" "}
-            <br />
-            loving look. For this bond to last an enduring lifetime, we provide
-            unmatched access to better nutrition for your dogs’ and cats’ health
-            and well being.
-          </div>
+        <div style={{ width: "100%" }}>
+          <Typography variant="subtitle1" className={classes.subtitle} style={{ textShadow: "0 0 5px blue, 0 0 2px lightblue" }} >The purrrfect app for your pupper!</Typography>
+          <Typography variant="subtitle1" className={classes.subtitle} style={{ color: "darkblue" }}>Curated with love by</Typography>
+          <br />
+          <center>
+            <img src="./WeDoTech.png" alt="WeDoTech logo" style={{ alignItems: "center", height: "10vw" }} />
+          </center>
+          <br />
+          <br />
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
