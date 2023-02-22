@@ -8,11 +8,24 @@ import "./sidebar.css";
 import { useLocation } from 'react-router-dom';
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+import FoodTracking from "./FoodTracking";
+import ActivityTracking from "./ActivityTracking";
+import MedicineTracking from "./MedicineTracking";
+import GroomingTracking from "./GroomingTracking";
+import InfoPage from "./InfoPage";
+import EditPage from "./EditPage";
 
 
 const Dashboard = () => {
   const [isLoading, setLoading] = useState(true);
+  const [isFoodTracking, setFoodTracking] = useState(true);
+  const [isActivity, setActivity] = useState(false);
+  const [isMedicine, setMedicine] = useState(false);
+  const [isGrooming, setGrooming] = useState(false);
+  const [isInfo, setInfo] = useState(false);
+  const [isEdit, setEdit] = useState(false);
   const [dogs, setDogs] = useState([]);
+  const [selectedDog, setSelectedDog] = useState();
   let validSession = false;
   let emailId = null;
   const location = useLocation();
@@ -28,7 +41,8 @@ const Dashboard = () => {
     axios.get(url).then((response) => {
       if (response.data) {
         setDogs(response.data);
-        console.log(dogs);
+        if (response.data.length > 0)
+          setSelectedDog(response.data[0].dogName);
         setLoading(false);
       }
     })
@@ -41,15 +55,19 @@ const Dashboard = () => {
     return <div className="App">Loading...</div>;
   }
 
+  function onOptionChange(e) {
+    setSelectedDog(e.target.value)
+  }
+
   function ListDogs(props) {
     var path = './dogImages',
       imgs = ['dog1.png', 'dog2.png', 'dog3.png', 'dog4.png', 'dog5.png'],
       i = Math.floor(Math.random() * imgs.length);
-    console.log(path + imgs[i]);
     return (
-      <a id="Dogs" href="javascript:void(0)">
-        <Avatar src={path + '/' + imgs[i]} className="rightIcon" style={{ height: '80%', width: '80%' }}></Avatar>{props.value}
-      </a>);
+      <label>
+        <input type="radio" name="DogName" value={props.value} onChange={onOptionChange} />
+        <img src={path + '/' + imgs[i]} className="rightIcon" style={{ height: '80%', width: '80%' }} />{props.value}
+      </label>);
   }
 
   if (validSession && !isLoading) {
@@ -75,41 +93,47 @@ const Dashboard = () => {
           </Menu> */}
               {/* <Typography variant="subtitle1" className={classes.subtitle}>The purrrfect app for your pupper!</Typography> */}
               <a href="/" style={{ float: 'right', color: 'white', paddingRight: '2px' }}>Logout</a>
-              <Avatar className="userIcon" src="/userIcon.png" style={{ margin: '1%', cursor: 'pointer' }}></Avatar>
+              <Avatar className="userIcon" src="/userIcon.png" style={{ margin: '1%', cursor: 'pointer' }} />
             </Toolbar>
           </AppBar>
         </div>
-        <div className="vertical-menu">
-          <a id="Food-Tracking" href="javascript:void(0)" style={{ paddingTop: '5vh' }}>
-            <Avatar src="./images/food.png" className="leftIcon" style={{ height: '80%', width: '80%' }}></Avatar>Food
-          </a>
-          <a id="Activity-Tracking" href="javascript:void(0)">
-            <Avatar src="./images/activity.png" className="leftIcon" style={{ height: '80%', width: '80%' }}></Avatar>Activities
-          </a>
-          <a id="Medicine-And-Vaccine-Tracking" href="javascript:void(0)">
-            <Avatar src="./images/vaccine.png" className="leftIcon" style={{ height: '80%', width: '80%' }}></Avatar>Medicines
-          </a>
-          <a id="Grooming-Tracking" href="javascript:void(0)">
-            <Avatar src="./images/grooming.jpg" className="leftIcon" style={{ height: '80%', width: '80%' }}></Avatar>Grooming
-          </a>
-          <a id="Information" href="javascript:void(0)">
-            <Avatar src="./images/info.jpg" className="leftIcon" style={{ height: '80%', width: '80%' }}></Avatar>Info
-          </a>
-          <a id="Edit" href="javascript:void(0)">
-            <Avatar src="./images/edit.png" className="leftIcon" style={{ height: '80%', width: '80%' }}></Avatar>Edit
-          </a>
+        <div className="vertical-menu" style={{ paddingTop: '3vw' }}>
+          <button id="Food-Tracking" className="button" onClick={() => { setFoodTracking(true); setActivity(false); setMedicine(false); setGrooming(false); setInfo(false); setEdit(false); }}>
+            <Avatar src="./images/food.png" className="leftIcon" style={{ height: '80%', width: '80%' }} />
+          </button><div style={{ textAlign: "center" }}>Food</div>
+          <button id="Activity-Tracking" className="button" onClick={() => { setFoodTracking(false); setActivity(true); setMedicine(false); setGrooming(false); setInfo(false); setEdit(false); }}>
+            <Avatar src="./images/activity.png" className="leftIcon" style={{ height: '80%', width: '80%' }} />
+          </button><div style={{ textAlign: "center" }}>Activity</div>
+          <button id="Medicine-And-Vaccine-Tracking" className="button" onClick={() => { setFoodTracking(false); setActivity(false); setMedicine(true); setGrooming(false); setInfo(false); setEdit(false); }}>
+            <Avatar src="./images/vaccine.png" className="leftIcon" style={{ height: '80%', width: '80%' }} />
+          </button><div style={{ textAlign: "center" }}>Medicines</div>
+          <button id="Grooming-Tracking" className="button" onClick={() => { setFoodTracking(false); setActivity(false); setMedicine(false); setGrooming(true); setInfo(false); setEdit(false); }}>
+            <Avatar src="./images/grooming.jpg" className="leftIcon" style={{ height: '80%', width: '80%' }} />
+          </button><div style={{ textAlign: "center" }}>Grooming</div>
+          <button id="Information" className="button" onClick={() => { setFoodTracking(false); setActivity(false); setMedicine(false); setGrooming(false); setInfo(true); setEdit(false); }}>
+            <Avatar src="./images/info.jpg" className="leftIcon" style={{ height: '80%', width: '80%' }} />
+          </button><div style={{ textAlign: "center" }}>Info</div>
+          <button id="Edit" className="button" onClick={() => { setFoodTracking(false); setActivity(false); setMedicine(false); setGrooming(false); setInfo(false); setEdit(true); }}>
+            <Avatar src="./images/edit.png" className="leftIcon" style={{ height: '80%', width: '80%' }} />
+          </button><div style={{ textAlign: "center" }}>Edit</div>
         </div>
         <div className="center-page" >
-          <img src="./images/healthTracking.jpg" width="100%" />
-          <h3 style={{ textAlign: 'center' }}>Under Construction</h3>
+          {/* <img src="./images/healthTracking.jpg" width="100%" />
+          <h3 style={{ textAlign: 'center' }}>Under Construction</h3> */}
+          {isFoodTracking && <FoodTracking dogName={selectedDog} />}
+          {isActivity && <ActivityTracking dogName={selectedDog} />}
+          {isMedicine && <MedicineTracking dogName={selectedDog} />}
+          {isGrooming && <GroomingTracking dogName={selectedDog} />}
+          {isInfo && <InfoPage dogName={selectedDog} />}
+          {isEdit && <EditPage dogName={selectedDog} />}
         </div>
         <div className="vertical-menu-right">
           {dogs.map((dog) =>
             <ListDogs key={dog.dogName} value={dog.dogName} />
           )}
-          <a id="AddDog" href="javascript:void(0)">
-            <Avatar src="./images/add_dog.png" className="rightIcon" style={{ height: '80%', width: '80%' }}></Avatar>Add
-          </a>
+          <button className="AddDog">
+            <Avatar src="./images/add_dog.png" className="rightIcon" style={{ height: '80%', width: '80%' }} />Add
+          </button>
         </div>
 
       </>

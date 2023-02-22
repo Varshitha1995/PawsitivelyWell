@@ -1,7 +1,8 @@
 package com.wedotech.pawsitivelywell.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,19 +11,21 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user_details")
-public class UserDetails implements Serializable{
-	
+@Table(name = "user_details")
+public class UserDetails implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long user_id;
-	
+
 	public Long getUser_id() {
 		return user_id;
 	}
@@ -31,26 +34,28 @@ public class UserDetails implements Serializable{
 		this.user_id = user_id;
 	}
 
-	@Column(name="FirstName")
+	@Column(name = "FirstName")
 	private String FirstName;
-	@Column(name="LastName")
+	@Column(name = "LastName")
 	private String LastName;
-	@Column(name="EmailId")
-	private String EmailId;
-	@Column(name="Password")
+	@Column(name = "emailId")
+	private String emailId;
+	@Column(name = "Password")
 	private String Password;
-	@OneToMany(mappedBy="userDetails", cascade= CascadeType.DETACH, fetch = FetchType.EAGER)
-	private List<DogDetails> Dogs;
-	
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinTable(name = "user_dog", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), inverseJoinColumns = @JoinColumn(name = "dog_id", referencedColumnName = "dog_id"))
+	private Set<DogDetails> dogs = new HashSet<>();
+
 	public UserDetails() {
-		
+
 	}
-	
-	public UserDetails(String firstName, String lastName, String emailId, String password) {
+
+	public UserDetails(String firstName, String lastName, String email, String password) {
 		super();
 		FirstName = firstName;
 		LastName = lastName;
-		EmailId = emailId;
+		emailId = email;
 		this.Password = password;
 	}
 
@@ -71,11 +76,11 @@ public class UserDetails implements Serializable{
 	}
 
 	public String getEmailId() {
-		return EmailId;
+		return emailId;
 	}
 
 	public void setEmailId(String emailId) {
-		EmailId = emailId;
+		this.emailId = emailId;
 	}
 
 	public String getPassword() {
@@ -86,16 +91,12 @@ public class UserDetails implements Serializable{
 		this.Password = password;
 	}
 
-	public List<DogDetails> getDogs() {
-		return Dogs;
+	public Set<DogDetails> getDogs() {
+		return dogs;
 	}
 
-	public void setDogs(List<DogDetails> dogs) {
-		Dogs = dogs;
+	public void setDogs(Set<DogDetails> dogs) {
+		this.dogs = dogs;
 	}
-
-	
-	
-	
 
 }
