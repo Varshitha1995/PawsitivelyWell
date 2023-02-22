@@ -1,7 +1,11 @@
 package com.wedotech.pawsitivelywell.controller;
 
-import java.util.List;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,12 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.wedotech.pawsitivelywell.model.DogDetails;
-import com.wedotech.pawsitivelywell.model.UserDetails;
 import com.wedotech.pawsitivelywell.service.DogDetailsService;
 import com.wedotech.pawsitivelywell.service.UserDetailsService;
 
@@ -58,6 +61,28 @@ public class PawsitivelyWellController {
 	@PostMapping("dog/addDog")
 	public boolean addDog(@RequestPart Long dogId, @RequestPart String emailId) {
 		return dogDetailsService.addDog(dogId, emailId);
+	}
+	
+	@PostMapping("dog/updateDog")
+	public boolean updateDog(@RequestPart Long dogId, @RequestPart String dogName, @RequestPart int age, @RequestPart String breed, @RequestPart float weight) {
+		return dogDetailsService.updateDog(dogId, dogName, age, breed, weight);
+	}
+	
+	@PostMapping("dog/uploadPhoto")
+	public boolean uploadPhoto(@RequestPart Long dogId, @RequestPart MultipartFile photo) {
+		BufferedImage originalImage;
+		byte[] imageInByte = null;
+		try {
+			originalImage = ImageIO.read(photo.getInputStream());
+			ByteArrayOutputStream baos=new ByteArrayOutputStream();
+			ImageIO.write(originalImage, "jpg", baos );
+			imageInByte=baos.toByteArray();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dogDetailsService.updateDogPhoto(dogId, imageInByte);
+		
 	}
 
 }

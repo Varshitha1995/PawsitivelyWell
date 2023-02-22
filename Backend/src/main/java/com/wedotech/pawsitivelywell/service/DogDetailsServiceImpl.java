@@ -5,7 +5,6 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.JsonObject;
 import com.wedotech.pawsitivelywell.model.DogDetails;
 import com.wedotech.pawsitivelywell.model.UserDetails;
 import com.wedotech.pawsitivelywell.repository.DogRepository;
@@ -43,14 +42,14 @@ public class DogDetailsServiceImpl implements DogDetailsService {
 	}
 	
 	@Override
-	public boolean updateDog(Long dogId, JsonObject dogDetails) {
+	public boolean updateDog(Long dogId, String dogName, int age, String breed, float weight) {
 		DogDetails dog = dogRepository.getById(dogId);
 		if (dog == null)
 			return false;
-		dog.setAge(dogDetails.get("age").getAsInt());
-		dog.setDogName(dogDetails.get("name").getAsString());
-		dog.setBreed(dogDetails.get("breed").getAsString());
-		dog.setWeight(dogDetails.get("weight").getAsFloat());
+		dog.setAge(age);
+		dog.setDogName(dogName);
+		dog.setBreed(breed);
+		dog.setWeight(weight);
 		dogRepository.save(dog);
 		return true;
 	}

@@ -39,6 +39,7 @@ const Dashboard = () => {
   const url = "http://localhost:8080/pawsitivelywell/user/getdogs?" + params;
   useEffect(() => {
     axios.get(url).then((response) => {
+      console.log(response);
       if (response.data) {
         setDogs(response.data);
         if (response.data.length > 0)
@@ -60,13 +61,20 @@ const Dashboard = () => {
   }
 
   function ListDogs(props) {
-    var path = './dogImages',
+      var img;
+      if(props.photo == null){
+        var path = './dogImages',
       imgs = ['dog1.png', 'dog2.png', 'dog3.png', 'dog4.png', 'dog5.png'],
       i = Math.floor(Math.random() * imgs.length);
+        img = path + '/' + imgs[i]
+      }else{
+        const data = props.photo
+        img = `data:image/jpeg;base64,${data}`
+      }
     return (
       <label>
         <input type="radio" name="DogName" value={props.value} onChange={onOptionChange} />
-        <img src={path + '/' + imgs[i]} className="rightIcon" style={{ height: '80%', width: '80%' }} />{props.value}
+        <img src={img} className="rightIcon" style={{ height: '80%', width: '80%' }} />{props.value}
       </label>);
   }
 
@@ -129,7 +137,7 @@ const Dashboard = () => {
         </div>
         <div className="vertical-menu-right">
           {dogs.map((dog) =>
-            <ListDogs key={dog.dogName} value={dog.dogName} />
+            <ListDogs key={dog.dogName} value={dog.dogName} photo={dog.photo}/>
           )}
           <button className="AddDog">
             <Avatar src="./images/add_dog.png" className="rightIcon" style={{ height: '80%', width: '80%' }} />Add
