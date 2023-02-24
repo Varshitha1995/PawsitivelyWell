@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.wedotech.pawsitivelywell.model.DogDetails;
+import com.wedotech.pawsitivelywell.model.UserDetails;
 import com.wedotech.pawsitivelywell.service.DogDetailsService;
 import com.wedotech.pawsitivelywell.service.UserDetailsService;
 
@@ -46,30 +47,40 @@ public class PawsitivelyWellController {
 	public Set<DogDetails> getDogsByUser(@RequestParam String emailId) {
 		return userDetailsService.getDogsByEmail(emailId);
 	}
+	
+	@GetMapping("user/getDetails")
+	public UserDetails getUserDetails(@RequestParam String emailId) {
+		return userDetailsService.getUserDetails(emailId);
+	}
 
 	@PostMapping("user/updateUser")
-	public boolean updateUser(@RequestBody String user) {
-		JsonObject userDetails = new Gson().fromJson(user, JsonObject.class);
-		return userDetailsService.updateUser(userDetails.get("emailId").getAsString(), userDetails);
+	public boolean updateUser(@RequestPart String firstName, @RequestPart String lastName, @RequestPart String emailId,
+			@RequestPart String password) {
+		return userDetailsService.updateUser(emailId, firstName, lastName, password);
 	}
 	
 	@PostMapping("dog/createDog")
-	public boolean createDog(@RequestPart String dogName,@RequestPart int age,@RequestPart String breed,@RequestPart float weight,@RequestPart String emailId) {
-		return dogDetailsService.createDog(dogName, age, breed, weight, emailId);
+	public boolean createDog(@RequestPart String dogName,@RequestPart String age,@RequestPart String breed,@RequestPart String weight,@RequestPart String emailId) {
+		return dogDetailsService.createDog(dogName, new Integer(age), breed, new Float(weight), emailId);
 	}
 	
 	@PostMapping("dog/addDog")
-	public boolean addDog(@RequestPart Long dogId, @RequestPart String emailId) {
-		return dogDetailsService.addDog(dogId, emailId);
+	public boolean addDog(@RequestPart String dogId, @RequestPart String emailId) {
+		return dogDetailsService.addDog(new Long(dogId), emailId);
+	}
+	
+	@GetMapping("dog/getDog")
+	public DogDetails getDog(@RequestParam String dogId) {
+		return dogDetailsService.getDog(new Long(dogId));
 	}
 	
 	@PostMapping("dog/updateDog")
-	public boolean updateDog(@RequestPart Long dogId, @RequestPart String dogName, @RequestPart int age, @RequestPart String breed, @RequestPart float weight) {
-		return dogDetailsService.updateDog(dogId, dogName, age, breed, weight);
+	public boolean updateDog(@RequestPart String dogId, @RequestPart String dogName, @RequestPart String age, @RequestPart String breed, @RequestPart String weight) {
+		return dogDetailsService.updateDog(new Long(dogId), dogName, new Integer(age), breed, new Float(weight));
 	}
 	
 	@PostMapping("dog/uploadPhoto")
-	public boolean uploadPhoto(@RequestPart Long dogId, @RequestPart MultipartFile photo) {
+	public boolean uploadPhoto(@RequestPart String dogId, @RequestPart MultipartFile photo) {
 		BufferedImage originalImage;
 		byte[] imageInByte = null;
 		try {
@@ -81,7 +92,7 @@ public class PawsitivelyWellController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return dogDetailsService.updateDogPhoto(dogId, imageInByte);
+		return dogDetailsService.updateDogPhoto(new Long(dogId), imageInByte);
 		
 	}
 

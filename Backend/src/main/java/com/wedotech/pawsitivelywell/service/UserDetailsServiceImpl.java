@@ -1,5 +1,7 @@
 package com.wedotech.pawsitivelywell.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,17 +44,25 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 
 	@Override
-	public boolean updateUser(String emailId, JsonObject userDetails) {
+	public boolean updateUser(String emailId, String firstName, String lastName, String password) {
 		UserDetails user = userRepository.getUser(emailId);
 		if (user == null)
 			return false;
-		user.setFirstName(userDetails.get("firstName").getAsString());
-		user.setLastName(userDetails.get("lastName").getAsString());
-		user.setPassword(userDetails.get("password").getAsString());
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setPassword(password);
 		userRepository.save(user);
 		return true;
 	}
 
+	@Override
+	public UserDetails getUserDetails(String emailId) {
+		UserDetails user = userRepository.getUser(emailId);
+		if (user == null)
+			return null;
+		return user;
+	}
+	
 	@Override
 	public Set<DogDetails> getDogsByEmail(String emailId) {
 		Long uId = userRepository.getUserId(emailId);

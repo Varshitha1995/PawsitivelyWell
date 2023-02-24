@@ -173,7 +173,7 @@ handleRegister = (event) => {
                       name="password"
                       id="login-password"
                       className="form-control"
-                      placeholder="*****"
+                      placeholder="*******"
                       required
                       onChange={this.handleChange}
                     />
@@ -248,7 +248,7 @@ handleRegister = (event) => {
                       name="password"
                       id="login-password"
                       className="form-control"
-                      placeholder="*****"
+                      placeholder="*******"
                       onChange={this.handleChange}
                       required
                       defaultValue={this.state.password}

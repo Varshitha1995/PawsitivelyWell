@@ -47,6 +47,24 @@ public class DogDetails implements Serializable {
 		Weight = weight;
 	}
 
+	public DogDetails(Long id, String dogName, String breed, int age, float weight, byte[] photo) {
+		super();
+		dog_id = id;
+		DogName = dogName;
+		Breed = breed;
+		Age = age;
+		Weight = weight;
+		Photo = photo;
+	}
+	
+	public Long getDog_id() {
+		return dog_id;
+	}
+
+	public void setDog_id(Long dog_id) {
+		this.dog_id = dog_id;
+	}
+
 	public DogDetails(String dogName, String breed, int age, float weight, byte[] photo) {
 		super();
 		DogName = dogName;
@@ -55,7 +73,7 @@ public class DogDetails implements Serializable {
 		Weight = weight;
 		Photo = photo;
 	}
-
+	
 	public String getDogName() {
 		return DogName;
 	}

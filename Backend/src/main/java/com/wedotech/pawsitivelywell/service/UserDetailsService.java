@@ -16,8 +16,10 @@ public interface UserDetailsService {
 
 	boolean createUser(String firstName, String lastName, String emailId, String password);
 
-	boolean updateUser(String emailId, JsonObject userDetails);
-
 	Set<DogDetails> getDogsByEmail(String emailId);
+
+	UserDetails getUserDetails(String emailId);
+
+	boolean updateUser(String emailId, String firstName, String lastName, String password);
 
 }

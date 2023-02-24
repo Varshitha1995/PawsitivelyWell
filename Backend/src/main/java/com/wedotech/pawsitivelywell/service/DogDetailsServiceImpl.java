@@ -32,13 +32,31 @@ public class DogDetailsServiceImpl implements DogDetailsService {
 	
 	@Override
 	public boolean addDog(Long dogId, String emailId) {
+		try {
 		DogDetails dog = dogRepository.getById(dogId);
+		if (dog == null)
+			return false;
 		UserDetails user = userRepository.getUser(emailId);
+		if(user == null)
+			return false;
 		Set<DogDetails> dogs = user.getDogs();
 		dogs.add(dog);
 		user.setDogs(dogs);
 		userRepository.save(user);
 		return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	@Override
+	public DogDetails getDog(Long dogId) {
+		return dogRepository.findById(dogId).get();
+		/*
+		 * DogDetails dog = dogRepository.getById(dogId); if(dog==null) return null;
+		 * return dog;
+		 */
 	}
 	
 	@Override

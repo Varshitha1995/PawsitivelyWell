@@ -1,7 +1,6 @@
 import React from "react";
 
 const FoodTracking = ({dogName}) => {
-    console.log(dogName)
     return (
         <div>
             <h3>Food Tracking div</h3>

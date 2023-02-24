@@ -14,6 +14,8 @@ import MedicineTracking from "./MedicineTracking";
 import GroomingTracking from "./GroomingTracking";
 import InfoPage from "./InfoPage";
 import EditPage from "./EditPage";
+import UserEdit from "./UserEdit";
+import AddDog from "./AddDog";
 
 
 const Dashboard = () => {
@@ -26,6 +28,10 @@ const Dashboard = () => {
   const [isEdit, setEdit] = useState(false);
   const [dogs, setDogs] = useState([]);
   const [selectedDog, setSelectedDog] = useState();
+  const [selectedDogId, setSelectedDogId] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [showDogModal, setShowDogModal] = useState(false);
+
   let validSession = false;
   let emailId = null;
   const location = useLocation();
@@ -39,11 +45,12 @@ const Dashboard = () => {
   const url = "http://localhost:8080/pawsitivelywell/user/getdogs?" + params;
   useEffect(() => {
     axios.get(url).then((response) => {
-      console.log(response);
       if (response.data) {
         setDogs(response.data);
-        if (response.data.length > 0)
+        if (response.data.length > 0){
           setSelectedDog(response.data[0].dogName);
+          setSelectedDogId(response.data[0].dog_id);
+        }
         setLoading(false);
       }
     })
@@ -52,12 +59,27 @@ const Dashboard = () => {
       });
   }, []);
 
+  const close = () => {
+    setShowModal((showModal) => !showModal)
+  }
+  const open = () => {
+    setShowModal((showModal) => !showModal)
+  }
+
+  const dogClose = () => {
+    setShowDogModal((showDogModal) => !showDogModal)
+  }
+  const dogOpen = () => {
+    setShowDogModal((showDogModal) => !showDogModal)
+  }
+
   if (isLoading) {
     return <div className="App">Loading...</div>;
   }
 
   function onOptionChange(e) {
     setSelectedDog(e.target.value)
+    setSelectedDogId(e.target.name);
   }
 
   function ListDogs(props) {
@@ -72,8 +94,8 @@ const Dashboard = () => {
         img = `data:image/jpeg;base64,${data}`
       }
     return (
-      <label>
-        <input type="radio" name="DogName" value={props.value} onChange={onOptionChange} />
+      <label className="AddDog">
+        <input type="radio" name={props.id} value={props.value} onChange={onOptionChange} />
         <img src={img} className="rightIcon" style={{ height: '80%', width: '80%' }} />{props.value}
       </label>);
   }
@@ -101,7 +123,8 @@ const Dashboard = () => {
           </Menu> */}
               {/* <Typography variant="subtitle1" className={classes.subtitle}>The purrrfect app for your pupper!</Typography> */}
               <a href="/" style={{ float: 'right', color: 'white', paddingRight: '2px' }}>Logout</a>
-              <Avatar className="userIcon" src="/userIcon.png" style={{ margin: '1%', cursor: 'pointer' }} />
+              <Avatar className="userIcon" src="/userIcon.png" style={{ margin: '1%', cursor: 'pointer' }} onClick={open}/>
+              <UserEdit showModal={showModal} emailId={emailId} onClose={close} />
             </Toolbar>
           </AppBar>
         </div>
@@ -133,15 +156,16 @@ const Dashboard = () => {
           {isMedicine && <MedicineTracking dogName={selectedDog} />}
           {isGrooming && <GroomingTracking dogName={selectedDog} />}
           {isInfo && <InfoPage dogName={selectedDog} />}
-          {isEdit && <EditPage dogName={selectedDog} />}
+          {isEdit && <EditPage dogName={selectedDog} dogId={selectedDogId}/>}
         </div>
         <div className="vertical-menu-right">
           {dogs.map((dog) =>
-            <ListDogs key={dog.dogName} value={dog.dogName} photo={dog.photo}/>
+            <ListDogs key={dog.dog_id} id={dog.dog_id} value={dog.dogName} photo={dog.photo}/>
           )}
           <button className="AddDog">
-            <Avatar src="./images/add_dog.png" className="rightIcon" style={{ height: '80%', width: '80%' }} />Add
+            <Avatar src="./images/add_dog.png" className="rightIcon" style={{ height: '80%', width: '80%' }} onClick={dogOpen}/>Add
           </button>
+          <AddDog showModal={showDogModal} emailId={emailId} onClose={dogClose}/>
         </div>
 
       </>
