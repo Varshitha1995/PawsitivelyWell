@@ -22,4 +22,6 @@ public interface UserDetailsService {
 
 	boolean updateUser(String emailId, String firstName, String lastName, String password);
 
+	boolean removeDog(String emailId, Long dogId);
+
 }

@@ -70,5 +70,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		Set<DogDetails> dogDetails = userRepository.getDogsByIds(dogIds);
 		return dogDetails;
 	}
+	
+	@Override
+	public boolean removeDog(String emailId, Long dogId) {
+		UserDetails user = userRepository.getUser(emailId);
+		if (user == null)
+			return false;
+		Set<DogDetails> dogs = user.getDogs();
+		dogs.remove(dogRepository.findById(dogId).get());
+		user.setDogs(dogs);
+		userRepository.save(user);
+		return true;
+	}
 
 }

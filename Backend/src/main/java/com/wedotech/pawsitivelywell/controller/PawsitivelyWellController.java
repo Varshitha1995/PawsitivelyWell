@@ -59,6 +59,11 @@ public class PawsitivelyWellController {
 		return userDetailsService.updateUser(emailId, firstName, lastName, password);
 	}
 	
+	@PostMapping("user/removeDog")
+	public boolean removeDog(@RequestPart String emailId, @RequestPart String dogId) {
+		return userDetailsService.removeDog(emailId, new Long(dogId));
+	}
+	
 	@PostMapping("dog/createDog")
 	public boolean createDog(@RequestPart String dogName,@RequestPart String age,@RequestPart String breed,@RequestPart String weight,@RequestPart String emailId) {
 		return dogDetailsService.createDog(dogName, new Integer(age), breed, new Float(weight), emailId);

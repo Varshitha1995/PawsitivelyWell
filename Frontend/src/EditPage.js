@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./loginStyles.css";
 
-const EditPage = ({ dogName, dogId }) => {
+const EditPage = ({ dogName, dogId, emailId }) => {
     const [isLoading, setLoading] = useState(true);
     const [breed, setBreed] = useState();
     const [age, setAge] = useState();
     const [name, setName] = useState(dogName);
+    const [mydogId, setDogId] = useState(dogId);
     const [weight, setWeight] = useState();
     const [photo, setPhoto] = useState();
     const [previewPhoto, setPreviewPhoto] = useState(null);
     const [success, setSuccess] = useState(false);
+    const [removeSuccess, setRemoveSuccess] = useState(false);
     const [uploadSuccess, setUploadSuccess] = useState(false);
     const [image, setImage] = useState();
 
@@ -37,6 +39,7 @@ const EditPage = ({ dogName, dogId }) => {
                 setImage(null);
                 setUploadSuccess(false);
                 setName(response.data.dogName);
+                setDogId(response.data.dog_id);
                 const data = response.data.photo;
                 if (data != null)
                     setPhoto(`data:image/jpeg;base64,${data}`);
@@ -54,6 +57,7 @@ const EditPage = ({ dogName, dogId }) => {
         setLoading(false);
         setSuccess(false);
         setPreviewPhoto(null);
+        setRemoveSuccess(false);
     }
 
     function onSubmit(event) {
@@ -81,14 +85,34 @@ const EditPage = ({ dogName, dogId }) => {
             });
     }
 
+    function onRemove(event) {
+        var data = new FormData();
+        data.append('dogId', dogId)
+        data.append('emailId', emailId)
+        const url = "http://localhost:8080/pawsitivelywell/user/removeDog"
+
+        axios.post(url, data, {
+
+        }).then((response) => {
+            if (response.data) {
+                setRemoveSuccess(true);
+                console.log("Dog removed successfully")
+            } else {
+                setRemoveSuccess(false);
+                console.log("Dog remove failed")
+            }
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     function onImageChange(e) {
         setPreviewPhoto(e.target.files[0]);
         setImage(URL.createObjectURL(e.target.files[0]))
     }
 
     function onImageSave(e) {
-        console.log(e);
-        console.log(dogId);
         const data = new FormData();
         data.append('dogId', dogId)
         data.append(
@@ -122,6 +146,24 @@ const EditPage = ({ dogName, dogId }) => {
                 <div>
                     <form className="form-horizontal form-loanable">
                         <fieldset>
+                        <div className="form-group has-feedback required">
+                                <label htmlFor="login-email" className="col-sm-5">Dog ID</label>
+                                <div className="col-sm-7">
+                                    <span className="form-control-feedback" aria-hidden="true"></span>
+                                    <input
+                                        type="text"
+                                        name="email"
+                                        id="login-email"
+                                        className="form-control"
+                                        style={{ cursor: "not-allowed" }}
+                                        placeholder="Pupper"
+                                        defaultValue={mydogId}
+                                        key={mydogId}
+                                        readOnly
+                                        required
+                                    />
+                                </div>
+                            </div>
                             <div className="form-group has-feedback required">
                                 <label htmlFor="login-email" className="col-sm-5">Dog Name</label>
                                 <div className="col-sm-7">
@@ -189,8 +231,16 @@ const EditPage = ({ dogName, dogId }) => {
                                 type="submit"
                                 className="btn btn-lg btn-primary btn-left" onClick={e => { e.preventDefault(); onSubmit(e); }} value="Update Dog Profile" />
                         </div>
+                        <div className="form-action">
+                            <input
+                                type="submit" style={{backgroundColor:"red"}}
+                                className="btn btn-lg btn-primary btn-left" onClick={e => { e.preventDefault(); onRemove(e); }} value="Remove Dog Profile" />
+                        </div>
                         {success && <div>
                             <span className="success-alert">Dog Profile updated successfully!</span>
+                        </div>}
+                        {removeSuccess && <div>
+                            <span className="success-alert">Dog Profile removed successfully!</span>
                         </div>}
                     </form>
                 </div>

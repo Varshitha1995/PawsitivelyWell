@@ -156,7 +156,7 @@ const Dashboard = () => {
           {isMedicine && <MedicineTracking dogName={selectedDog} />}
           {isGrooming && <GroomingTracking dogName={selectedDog} />}
           {isInfo && <InfoPage dogName={selectedDog} />}
-          {isEdit && <EditPage dogName={selectedDog} dogId={selectedDogId}/>}
+          {isEdit && <EditPage dogName={selectedDog} dogId={selectedDogId} emailId={emailId}/>}
         </div>
         <div className="vertical-menu-right">
           {dogs.map((dog) =>
