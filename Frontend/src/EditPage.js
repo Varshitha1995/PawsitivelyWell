@@ -207,7 +207,7 @@ const EditPage = ({ dogName, dogId }) => {
                     <div className="form-action">
                             <input
                                 type="submit"
-                                className="btn btn-lg btn-primary btn-left" style={{marginLeft:"0vw"}} onClick={e => { e.preventDefault(); onImageSave(e); }} value="Upload" />
+                                className="btn btn-lg btn-primary btn-left" disabled={previewPhoto==null} style={{marginLeft:"0vw"}} onClick={e => { e.preventDefault(); onImageSave(e); }} value="Upload" />
                         </div>
                         {uploadSuccess && <div>
                             <span className="success-alert">Dog photo uploaded successfully!</span>
