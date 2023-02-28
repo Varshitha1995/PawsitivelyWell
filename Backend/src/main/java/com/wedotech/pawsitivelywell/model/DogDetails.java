@@ -4,42 +4,49 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Entity
-@Table(name="dog_details")
-public class DogDetails implements Serializable{
-private static final long serialVersionUID = 1L;
-	
+@Table(name = "dog_details")
+public class DogDetails implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long dog_id;
-	
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "user_id", nullable = false)
-	private UserDetails userDetails;
-	
-	@Column(name="DogName")
+
+//	@ManyToMany(mappedBy = "dogs", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+////	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+////	@JoinTable(name = "user_dog", inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), joinColumns = @JoinColumn(name = "dog_id", referencedColumnName = "dog_id"))
+//	private Set<UserDetails> users = new HashSet<>();
+
+	@Column(name = "DogName")
 	private String DogName;
-	@Column(name="Breed")
+	@Column(name = "Breed")
 	private String Breed;
-	@Column(name="Age")
+	@Column(name = "Age")
 	private int Age;
-	@Column(name="Weight")
+	@Column(name = "Weight")
 	private float Weight;
-	@Column(name="Photo")
+	@Column(name = "Photo")
 	private byte[] Photo;
-	
+
 	public DogDetails() {
-		
+
 	}
-	
+
+	public DogDetails(String dogName, String breed, int age, float weight) {
+		super();
+		DogName = dogName;
+		Breed = breed;
+		Age = age;
+		Weight = weight;
+	}
+
 	public DogDetails(String dogName, String breed, int age, float weight, byte[] photo) {
 		super();
 		DogName = dogName;
@@ -88,6 +95,13 @@ private static final long serialVersionUID = 1L;
 	public void setPhoto(byte[] photo) {
 		Photo = photo;
 	}
-	
+
+//	public Set<UserDetails> getUsers() {
+//		return users;
+//	}
+//
+//	public void setUsers(Set<UserDetails> users) {
+//		this.users = users;
+//	}
 
 }

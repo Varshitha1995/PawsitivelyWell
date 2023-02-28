@@ -1,5 +1,7 @@
 package com.wedotech.pawsitivelywell.service;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,20 +11,57 @@ import com.wedotech.pawsitivelywell.repository.DogRepository;
 import com.wedotech.pawsitivelywell.repository.UserRepository;
 
 @Service
-public class DogDetailsServiceImpl implements DogDetailsService{
+public class DogDetailsServiceImpl implements DogDetailsService {
 
 	@Autowired
 	DogRepository dogRepository;
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Override
-	public DogDetails[] getDogsByUser(String emailId) {
-//		Long userId = userRepository.getUserId(emailId);
-//		DogDetails[] dogDetails = dogRepository.getDogsByUser(userId);
-		DogDetails[] dogDetails = dogRepository.getDogsByEmail(emailId);
-		return dogDetails;
-		
+	public boolean createDog(String dogName, int age, String breed, float weight, String emailId) {
+		DogDetails dog = new DogDetails(dogName, breed, age, weight);
+		UserDetails user = userRepository.getUser(emailId);
+		dogRepository.save(dog);
+		Set<DogDetails> dogs = user.getDogs();
+		dogs.add(dog);
+		user.setDogs(dogs);
+		userRepository.save(user);
+		return true;
 	}
 	
+	@Override
+	public boolean addDog(Long dogId, String emailId) {
+		DogDetails dog = dogRepository.getById(dogId);
+		UserDetails user = userRepository.getUser(emailId);
+		Set<DogDetails> dogs = user.getDogs();
+		dogs.add(dog);
+		user.setDogs(dogs);
+		userRepository.save(user);
+		return true;
+	}
+	
+	@Override
+	public boolean updateDog(Long dogId, String dogName, int age, String breed, float weight) {
+		DogDetails dog = dogRepository.getById(dogId);
+		if (dog == null)
+			return false;
+		dog.setAge(age);
+		dog.setDogName(dogName);
+		dog.setBreed(breed);
+		dog.setWeight(weight);
+		dogRepository.save(dog);
+		return true;
+	}
+
+	@Override
+	public boolean updateDogPhoto(Long dogId, byte[] photo) {
+		DogDetails dog = dogRepository.getById(dogId);
+		if (dog == null)
+			return false;
+		dog.setPhoto(photo);
+		dogRepository.save(dog);
+		return true;
+	}
+
 }
