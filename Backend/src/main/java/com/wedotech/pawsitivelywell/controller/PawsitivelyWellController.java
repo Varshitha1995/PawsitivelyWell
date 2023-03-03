@@ -3,6 +3,7 @@ package com.wedotech.pawsitivelywell.controller;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -99,6 +100,31 @@ public class PawsitivelyWellController {
 		}
 		return dogDetailsService.updateDogPhoto(new Long(dogId), imageInByte);
 		
+	}
+	
+	@GetMapping("dog/getFoodRoutine")
+	public String getFoodRoutine(@RequestParam String dogId) {
+		return dogDetailsService.getFoodRoutine(new Long(dogId));
+	}
+	
+	@PostMapping("dog/saveFoodRoutine")
+	public boolean saveFoodRoutine(@RequestPart String dogId, @RequestPart String routine) {
+		return dogDetailsService.saveFoodRoutine(new Long(dogId), routine);
+	}
+	
+	@GetMapping("dog/getTrackedFood")
+	public List<String> getTrackedFood(@RequestParam String dogId){
+		return dogDetailsService.getTrackedFood(new Long(dogId));
+	}
+	
+	@PostMapping("dog/trackFood")
+	public boolean trackFood(@RequestPart String dogId, @RequestPart String data) {
+		return dogDetailsService.trackFood(new Long(dogId), data);
+	}
+	
+	@GetMapping("dog/recommendedFood")
+	public String recommendFood(@RequestParam String dogId) {
+		return dogDetailsService.getRecommendedFood(new Long(dogId));
 	}
 
 }

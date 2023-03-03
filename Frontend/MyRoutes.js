@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Router, Routes, Route } from "react-router-dom";
 
 import App from "./src/App";
-import FoodTracking from "./src/FoodTracking";
+import Dashboard from "./src/Dashboard";
 
 export default class MyRoutes extends Component {
     render() {
@@ -11,7 +11,7 @@ export default class MyRoutes extends Component {
                 <Routes>
                 {/* <Switch> */}
                     <Route path="/" exact element={<App />} />
-                    <Route path="/dashboard" exact element={<FoodTracking />} />
+                    <Route path="/dashboard" exact element={<Dashboard />} />
                 {/* </Switch> */}
                 </Routes>
             // </Router>

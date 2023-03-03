@@ -151,7 +151,7 @@ const Dashboard = () => {
         <div className="center-page" >
           {/* <img src="./images/healthTracking.jpg" width="100%" />
           <h3 style={{ textAlign: 'center' }}>Under Construction</h3> */}
-          {isFoodTracking && <FoodTracking dogName={selectedDog} />}
+          {isFoodTracking && <FoodTracking dogName={selectedDog}  dogId={selectedDogId} />}
           {isActivity && <ActivityTracking dogName={selectedDog} />}
           {isMedicine && <MedicineTracking dogName={selectedDog} />}
           {isGrooming && <GroomingTracking dogName={selectedDog} />}

@@ -1,6 +1,7 @@
 package com.wedotech.pawsitivelywell.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -60,7 +61,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		UserDetails user = userRepository.getUser(emailId);
 		if (user == null)
 			return null;
-		return user;
+		UserDetails u = new UserDetails(user.getFirstName(), user.getLastName(), user.getEmailId(), user.getPassword());
+		return u;
 	}
 	
 	@Override
@@ -68,7 +70,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		Long uId = userRepository.getUserId(emailId);
 		Set<Long> dogIds = userRepository.getDogIds(uId);
 		Set<DogDetails> dogDetails = userRepository.getDogsByIds(dogIds);
-		return dogDetails;
+		Set<DogDetails> dogs = new HashSet<>();
+		for(DogDetails dog: dogDetails) {
+			DogDetails d = new DogDetails(dog.getDog_id(), dog.getDogName(), dog.getBreed(), dog.getAge(), dog.getWeight(), dog.getPhoto());
+			dogs.add(d);
+		}
+		return dogs;
 	}
 	
 	@Override

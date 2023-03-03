@@ -1,12 +1,17 @@
 package com.wedotech.pawsitivelywell.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -34,6 +39,12 @@ public class DogDetails implements Serializable {
 	private float Weight;
 	@Column(name = "Photo")
 	private byte[] Photo;
+	
+	@OneToOne(mappedBy="dog", cascade= CascadeType.DETACH, fetch = FetchType.LAZY)
+	private DogRoutine routine;
+	
+	@OneToMany(mappedBy="dog", cascade= CascadeType.DETACH, fetch = FetchType.LAZY)
+	private List<Tracking> tracking;
 
 	public DogDetails() {
 
@@ -112,6 +123,22 @@ public class DogDetails implements Serializable {
 
 	public void setPhoto(byte[] photo) {
 		Photo = photo;
+	}
+	
+	public DogRoutine getRoutine() {
+		return routine;
+	}
+
+	public void setRoutine(DogRoutine routine) {
+		this.routine = routine;
+	}
+
+	public List<Tracking> getTracking() {
+		return tracking;
+	}
+
+	public void setTracking(List<Tracking> tracking) {
+		this.tracking = tracking;
 	}
 
 //	public Set<UserDetails> getUsers() {

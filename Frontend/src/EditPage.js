@@ -480,7 +480,7 @@ const EditPage = ({ dogName, dogId, emailId }) => {
                                 </div>
                             </div>
                             <div className="form-group has-feedback required">
-                                <label htmlFor="login-email" className="col-sm-5">Weight (in kg)</label>
+                                <label htmlFor="login-email" className="col-sm-5">Weight (in lbs)</label>
                                 <div className="col-sm-7">
                                     <span className="form-control-feedback" aria-hidden="true"></span>
                                     <input
