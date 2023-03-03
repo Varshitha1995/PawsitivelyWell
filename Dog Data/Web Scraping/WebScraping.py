@@ -60,3 +60,30 @@ def get_expectancy(expectancy_span):
 def get_weight(weight_span):
     wt_text = weight_span.get_text()
     return general_regex(wt_text, 'weight', 0.45359237) 
+
+#Main Function for Web Scraping
+
+def get_data():
+    page = requests.get('https://www.akc.org/dog-breeds/')
+    soup = BeautifulSoup(page.content, 'html.parser')
+    
+    # An HTML select tag with all the breeds and their urls
+    breed_select = soup.find('select', id='breed-search')
+    
+    # Keeping only children from breed_select which are actually breeds
+    breeds = [
+        tag for tag in breed_select.children if type(tag) is Tag and tag['value']
+    ]
+    
+    breed_dict = {
+        breed.get_text(): Breed(breed['value']).get_info(
+        ) for breed in tqdm(breeds)
+    }
+    
+    return breed_dict
+
+breed_dict = get_data()
+
+breed_df = pd.DataFrame.from_dict(
+    breed_dict, orient='index'
+)
