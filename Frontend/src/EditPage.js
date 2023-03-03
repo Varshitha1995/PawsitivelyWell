@@ -411,9 +411,9 @@ const EditPage = ({ dogName, dogId, emailId }) => {
 
     if (!isLoading) {
         return (
-            <div style={{ marginLeft: "2vw" }}>
-                <div className="modalHeader">
-                    <h2>Edit {name} details</h2>
+            <div style={{ marginLeft: "1vw" }}>
+                <div className="heading">
+                    <h1>Edit {name} details</h1>
                 </div>
                 <div>
                     <form className="form-horizontal form-loanable">
@@ -516,7 +516,7 @@ const EditPage = ({ dogName, dogId, emailId }) => {
                         </div>}
                     </form>
                 </div>
-                <div style={{ margin: '2vw' }}>
+                <div style={{ margin: '1vw' }}>
                     <label htmlFor="login-email" className="col-sm-5">Dog Photo</label><br />
                     {{ previewPhoto } && <img src={image || photo} style={{ height: '10vw', width: '10vw' }} alt="No Picture" /> ||
                         { photo } && <img src={photo} style={{ height: '10vw', width: '10vw' }} alt="No Picture" />

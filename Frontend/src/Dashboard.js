@@ -16,6 +16,7 @@ import InfoPage from "./InfoPage";
 import EditPage from "./EditPage";
 import UserEdit from "./UserEdit";
 import AddDog from "./AddDog";
+import ReminderPage from "./ReminderPage";
 
 
 const Dashboard = () => {
@@ -26,6 +27,7 @@ const Dashboard = () => {
   const [isGrooming, setGrooming] = useState(false);
   const [isInfo, setInfo] = useState(false);
   const [isEdit, setEdit] = useState(false);
+  const [isReminder, setReminder] = useState(false);
   const [dogs, setDogs] = useState([]);
   const [selectedDog, setSelectedDog] = useState();
   const [selectedDogId, setSelectedDogId] = useState();
@@ -116,12 +118,6 @@ const Dashboard = () => {
               <Typography variant="h6" className="appName" style={{ marginLeft: '2%', flexGrow: 1 }} >
                 Pawsitively Well!
               </Typography>
-              {/* <Menu secondary>
-            <Menu.Item name="home" />
-            <Menu.Item name="messages" />
-            <Menu.Item name="friends" />
-          </Menu> */}
-              {/* <Typography variant="subtitle1" className={classes.subtitle}>The purrrfect app for your pupper!</Typography> */}
               <a href="/" style={{ float: 'right', color: 'white', paddingRight: '2px' }}>Logout</a>
               <Avatar className="userIcon" src="/userIcon.png" style={{ margin: '1%', cursor: 'pointer' }} onClick={open}/>
               <UserEdit showModal={showModal} emailId={emailId} onClose={close} />
@@ -129,33 +125,35 @@ const Dashboard = () => {
           </AppBar>
         </div>
         <div className="vertical-menu" style={{ paddingTop: '3vw' }}>
-          <button id="Food-Tracking" className="button" onClick={() => { setFoodTracking(true); setActivity(false); setMedicine(false); setGrooming(false); setInfo(false); setEdit(false); }}>
+          <button id="Food-Tracking" className="button" onClick={() => { setFoodTracking(true); setActivity(false); setMedicine(false); setGrooming(false); setInfo(false); setEdit(false); setReminder(false); }}>
             <Avatar src="./images/food.png" className="leftIcon" style={{ height: '80%', width: '80%' }} />
           </button><div style={{ textAlign: "center" }}>Food</div>
-          <button id="Activity-Tracking" className="button" onClick={() => { setFoodTracking(false); setActivity(true); setMedicine(false); setGrooming(false); setInfo(false); setEdit(false); }}>
+          <button id="Activity-Tracking" className="button" onClick={() => { setFoodTracking(false); setActivity(true); setMedicine(false); setGrooming(false); setInfo(false); setEdit(false); setReminder(false); }}>
             <Avatar src="./images/activity.png" className="leftIcon" style={{ height: '80%', width: '80%' }} />
           </button><div style={{ textAlign: "center" }}>Activity</div>
-          <button id="Medicine-And-Vaccine-Tracking" className="button" onClick={() => { setFoodTracking(false); setActivity(false); setMedicine(true); setGrooming(false); setInfo(false); setEdit(false); }}>
+          <button id="Medicine-And-Vaccine-Tracking" className="button" onClick={() => { setFoodTracking(false); setActivity(false); setMedicine(true); setGrooming(false); setInfo(false); setEdit(false); setReminder(false); }}>
             <Avatar src="./images/vaccine.png" className="leftIcon" style={{ height: '80%', width: '80%' }} />
           </button><div style={{ textAlign: "center" }}>Medicines</div>
-          <button id="Grooming-Tracking" className="button" onClick={() => { setFoodTracking(false); setActivity(false); setMedicine(false); setGrooming(true); setInfo(false); setEdit(false); }}>
+          <button id="Grooming-Tracking" className="button" onClick={() => { setFoodTracking(false); setActivity(false); setMedicine(false); setGrooming(true); setInfo(false); setEdit(false); setReminder(false); }}>
             <Avatar src="./images/grooming.jpg" className="leftIcon" style={{ height: '80%', width: '80%' }} />
           </button><div style={{ textAlign: "center" }}>Grooming</div>
-          <button id="Information" className="button" onClick={() => { setFoodTracking(false); setActivity(false); setMedicine(false); setGrooming(false); setInfo(true); setEdit(false); }}>
+          <button id="Information" className="button" onClick={() => { setFoodTracking(false); setActivity(false); setMedicine(false); setGrooming(false); setInfo(true); setEdit(false); setReminder(false); }}>
             <Avatar src="./images/info.jpg" className="leftIcon" style={{ height: '80%', width: '80%' }} />
           </button><div style={{ textAlign: "center" }}>Info</div>
-          <button id="Edit" className="button" onClick={() => { setFoodTracking(false); setActivity(false); setMedicine(false); setGrooming(false); setInfo(false); setEdit(true); }}>
+          <button id="Edit" className="button" onClick={() => { setFoodTracking(false); setActivity(false); setMedicine(false); setGrooming(false); setInfo(false); setEdit(false); setReminder(true); }}>
+            <Avatar src="./images/reminder.png" className="leftIcon" style={{ height: '80%', width: '80%' }} />
+          </button><div style={{ textAlign: "center" }}>Reminder</div>
+          <button id="Edit" className="button" onClick={() => { setFoodTracking(false); setActivity(false); setMedicine(false); setGrooming(false); setInfo(false); setEdit(true); setReminder(false); }}>
             <Avatar src="./images/edit.png" className="leftIcon" style={{ height: '80%', width: '80%' }} />
           </button><div style={{ textAlign: "center" }}>Edit</div>
         </div>
         <div className="center-page" >
-          {/* <img src="./images/healthTracking.jpg" width="100%" />
-          <h3 style={{ textAlign: 'center' }}>Under Construction</h3> */}
           {isFoodTracking && <FoodTracking dogName={selectedDog}  dogId={selectedDogId} />}
           {isActivity && <ActivityTracking dogName={selectedDog} />}
           {isMedicine && <MedicineTracking dogName={selectedDog} />}
           {isGrooming && <GroomingTracking dogName={selectedDog} />}
           {isInfo && <InfoPage dogName={selectedDog} />}
+          {isReminder && <ReminderPage dogName={selectedDog} dogId={selectedDogId} emailId={emailId} />}
           {isEdit && <EditPage dogName={selectedDog} dogId={selectedDogId} emailId={emailId}/>}
         </div>
         <div className="vertical-menu-right">
