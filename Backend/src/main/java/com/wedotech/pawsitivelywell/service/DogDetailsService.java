@@ -30,4 +30,23 @@ public interface DogDetailsService {
 
 	String getRecommendedFood(Long dogId);
 
+	String getActivityRoutine(Long dogId);
+
+	boolean saveActivityRoutine(Long dogId, String routine);
+
+	List<String> getTrackedActivity(Long dogId);
+
+	boolean trackActivity(Long dogId, String data);
+
+	String getRecommendedActivity(Long dogId);
+
+	String getVaccinationRoutine(Long dogId);
+
+	boolean saveVaccinationRoutine(Long dogId, String routine);
+
+	List<String> getTrackedVaccination(Long dogId);
+
+	boolean trackVaccination(Long dogId, String data);
+
+
 }

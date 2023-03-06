@@ -52,34 +52,31 @@ const FoodTracking = ({ dogName, dogId }) => {
       });
 
     axios.get(recoUrl).then((response) => {
-        if (response.data) {
-          console.log(response.data.cups);
-          console.log((response.data.cups)*100);
-            setCups(Math.round((response.data.cups)*100+1));
-            setClass1(Math.round((response.data.cups*100)/4 +1));
-            setClass2(Math.round((response.data.cups*100)/2 +1));
-            setClass3(Math.round((3*(response.data.cups*100))/4 +1));
-            setClass4(Math.round((response.data.cups*100)*2 +1));
-            setRecoLoading(false);
-        }
+      if (response.data) {
+        setCups(Math.round((response.data.cups) * 100 + 1));
+        setClass1(Math.round((response.data.cups * 100) / 4 + 1));
+        setClass2(Math.round((response.data.cups * 100) / 2 + 1));
+        setClass3(Math.round((3 * (response.data.cups * 100)) / 4 + 1));
+        setClass4(Math.round((response.data.cups * 100) * 2 + 1));
+        setRecoLoading(false);
+      }
     })
-        .catch(function (error) {
-            console.log(error);
-        });
+      .catch(function (error) {
+        console.log(error);
+      });
 
     axios.get(trackedDataUrl).then((response) => {
-      if (response.data) {        
+      if (response.data) {
         var storedData = [];
         response.data.forEach(element => {
           const obj = JSON.parse(element);
           let formatteddate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(obj.timestamp * 1000)
-          const i = storedData.findIndex(e => e.date==formatteddate)
-          if(i>-1){
-            storedData[i] = {"date": formatteddate, "count": (obj.quantity*100)+storedData[i].count}
-          }else
-            storedData.push({"date": formatteddate, "count": obj.quantity*100})
+          const i = storedData.findIndex(e => e.date == formatteddate)
+          if (i > -1) {
+            storedData[i] = { "date": formatteddate, "count": (obj.quantity * 100) + storedData[i].count }
+          } else
+            storedData.push({ "date": formatteddate, "count": obj.quantity * 100 })
         });
-        console.log(storedData)
         setTrackedData(storedData);
         setLoading(false);
       }
@@ -143,7 +140,6 @@ const FoodTracking = ({ dogName, dogId }) => {
   colors[cups] = "#006203"
   colors[class4] = "#18392b"
   colors[500] = "#000"
-  console.log(colors)
 
 
   return (
@@ -254,45 +250,45 @@ const FoodTracking = ({ dogName, dogId }) => {
           </form>
         </div>
       </div>
-      <div style={{ margin: "1vw", border: "2px dashed #5B42F3", padding: "1vw"}}>
-      {!loading && !recoLoading && <HeatMap
-        value={trackedData}
-        startDate={new Date("2023/02/01")}
-        monthLabels={['January', 'February','March','April','May','June','July','August','September','October','November','December']}
-        space={4}
-        rectSize={14}
-        height="16.5em"
-        width="100%"
-        rectProps={{
-          rx: 5,
-        }}
-        panelColors={
-          colors
-        }
-        legendCellSize={0}
-        legendRender={(props) => <rect {...props} y={props.y + 10} rx={5} />}
-        rectRender={(props, data) => {
-          return (
-            <Tooltip
-              key={props.key}
-              placement="top"
-              content={`${data.date}: ${data.count/100 || 0} cups`}
-            >
-              <rect {...props} />
-            </Tooltip>
-          );
-        }}
-      />}
-      <div style={{float:"left", backgroundColor:"#0f9200", height:"1em", width:"1em"}}></div>
-      <div style={{float:"left", backgroundColor:"transparent", height:"0.3em", width:"0.3em"}}></div>
-      <div style={{float:"left", backgroundColor:"#006203", height:"1em", width:"1em"}}></div>
-      <p>&nbsp;: Keep getting those perfect greens 
-      </p>
-      <div style={{float:"left", backgroundColor:"#18392b", height:"1em", width:"1em"}}></div>
-      <div style={{float:"left", backgroundColor:"transparent", height:"0.3em", width:"0.3em"}}></div>
-      <div style={{float:"left", backgroundColor:"#000", height:"1em", width:"1em"}}></div>
-      <p>&nbsp;: Avoid overfeeding to reduce these 
-      </p>
+      <div style={{ margin: "1vw", border: "2px dashed #5B42F3", padding: "1vw" }}>
+        {!loading && !recoLoading && <HeatMap
+          value={trackedData}
+          startDate={new Date("2023/02/01")}
+          monthLabels={['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}
+          space={4}
+          rectSize={14}
+          height="16.5em"
+          width="100%"
+          rectProps={{
+            rx: 5,
+          }}
+          panelColors={
+            colors
+          }
+          legendCellSize={0}
+          legendRender={(props) => <rect {...props} y={props.y + 10} rx={5} />}
+          rectRender={(props, data) => {
+            return (
+              <Tooltip
+                key={props.key}
+                placement="top"
+                content={`${data.date}: ${data.count / 100 || 0} cups`}
+              >
+                <rect {...props} />
+              </Tooltip>
+            );
+          }}
+        />}
+        <div style={{ float: "left", backgroundColor: "#0f9200", height: "1em", width: "1em" }}></div>
+        <div style={{ float: "left", backgroundColor: "transparent", height: "0.3em", width: "0.3em" }}></div>
+        <div style={{ float: "left", backgroundColor: "#006203", height: "1em", width: "1em" }}></div>
+        <p>&nbsp;: Keep getting those perfect greens
+        </p>
+        <div style={{ float: "left", backgroundColor: "#18392b", height: "1em", width: "1em" }}></div>
+        <div style={{ float: "left", backgroundColor: "transparent", height: "0.3em", width: "0.3em" }}></div>
+        <div style={{ float: "left", backgroundColor: "#000", height: "1em", width: "1em" }}></div>
+        <p>&nbsp;: Avoid overfeeding to reduce these
+        </p>
       </div>
       <div className="card-element">
         <SuggestionCard dogId={dogId} dogName={dogName} />

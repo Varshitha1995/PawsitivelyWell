@@ -127,4 +127,50 @@ public class PawsitivelyWellController {
 		return dogDetailsService.getRecommendedFood(new Long(dogId));
 	}
 
+	@GetMapping("dog/getActivityRoutine")
+	public String getActivityRoutine(@RequestParam String dogId) {
+		return dogDetailsService.getActivityRoutine(new Long(dogId));
+	}
+	
+	@PostMapping("dog/saveActivityRoutine")
+	public boolean saveActivityRoutine(@RequestPart String dogId, @RequestPart String routine) {
+		return dogDetailsService.saveActivityRoutine(new Long(dogId), routine);
+	}
+	
+	@GetMapping("dog/getTrackedActivity")
+	public List<String> getTrackedActivity(@RequestParam String dogId){
+		return dogDetailsService.getTrackedActivity(new Long(dogId));
+	}
+	
+	@PostMapping("dog/trackActivity")
+	public boolean trackActivity(@RequestPart String dogId, @RequestPart String data) {
+		return dogDetailsService.trackActivity(new Long(dogId), data);
+	}
+	
+	@GetMapping("dog/recommendedActivity")
+	public String recommendedActivity(@RequestParam String dogId) {
+		return dogDetailsService.getRecommendedActivity(new Long(dogId));
+	}
+
+	@GetMapping("dog/getVaccinationRoutine")
+	public String getVaccinationRoutine(@RequestParam String dogId) {
+		return dogDetailsService.getVaccinationRoutine(new Long(dogId));
+	}
+	
+	@PostMapping("dog/saveVaccinationRoutine")
+	public boolean saveVaccinationRoutine(@RequestPart String dogId, @RequestPart String routine) {
+		return dogDetailsService.saveVaccinationRoutine(new Long(dogId), routine);
+	}
+	
+	@GetMapping("dog/getTrackedVaccination")
+	public List<String> getTrackedVaccination(@RequestParam String dogId){
+		return dogDetailsService.getTrackedVaccination(new Long(dogId));
+	}
+	
+	@PostMapping("dog/trackVaccination")
+	public boolean trackVaccination(@RequestPart String dogId, @RequestPart String data) {
+		return dogDetailsService.trackVaccination(new Long(dogId), data);
+	}
+	
+
 }
