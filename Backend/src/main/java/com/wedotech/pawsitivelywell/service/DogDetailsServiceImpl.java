@@ -201,7 +201,7 @@ public class DogDetailsServiceImpl implements DogDetailsService {
 	@Override
 	public String getActivityRoutine(Long dogId) {
 		DogRoutine routine = dogRoutineRepository.getRoutine(dogId);
-		if(routine == null || routine.getFoodRoutine() == null)
+		if(routine == null || routine.getActivityRoutine() == null)
 			return null;
 		return routine.getActivityRoutine();
 	}
@@ -255,7 +255,7 @@ public class DogDetailsServiceImpl implements DogDetailsService {
 		JsonObject activities = getActivities(dog.getBreed());
 		int age = dog.getAge();
 		if(age<=1) {
-			result.addProperty("pup", activities.get("pup").getAsNumber());
+			result.addProperty("pup", activities.get("pup").getAsString());
 		}else {
 		result.addProperty("minutes", activities.get("minutes").getAsNumber());
 		result.addProperty("miles", activities.get("miles").getAsNumber());
@@ -266,7 +266,7 @@ public class DogDetailsServiceImpl implements DogDetailsService {
 	@Override
 	public String getVaccinationRoutine(Long dogId) {
 		DogRoutine routine = dogRoutineRepository.getRoutine(dogId);
-		if(routine == null || routine.getFoodRoutine() == null)
+		if(routine == null || routine.getVaccinationRoutine() == null)
 			return null;
 		return routine.getVaccinationRoutine();
 	}

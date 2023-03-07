@@ -37,7 +37,6 @@ const FoodTracking = ({ dogName, dogId }) => {
   }).toString();
   const url = "http://localhost:8080/pawsitivelywell/dog/getFoodRoutine?" + params;
   const trackedDataUrl = "http://localhost:8080/pawsitivelywell/dog/getTrackedFood?" + params;
-  const recoUrl = "http://localhost:8080/pawsitivelywell/dog/recommendedFood?" + params;
   useEffect(() => {
     setSuccess(false);
     setTrackSuccess(false);
@@ -45,19 +44,12 @@ const FoodTracking = ({ dogName, dogId }) => {
       if (response.data) {
         setQuantity(response.data.quantity);
         setFrequency(response.data.frequency);
-      }
-    })
-      .catch(function (error) {
-        console.log(error);
-      });
 
-    axios.get(recoUrl).then((response) => {
-      if (response.data) {
-        setCups(Math.round((response.data.cups) * 100 + 1));
-        setClass1(Math.round((response.data.cups * 100) / 4 + 1));
-        setClass2(Math.round((response.data.cups * 100) / 2 + 1));
-        setClass3(Math.round((3 * (response.data.cups * 100)) / 4 + 1));
-        setClass4(Math.round((response.data.cups * 100) * 2 + 1));
+        setCups(Math.round((response.data.quantity) * 100 + 1));
+        setClass1(Math.round((response.data.quantity * 100) / 4 + 1));
+        setClass2(Math.round((response.data.quantity * 100) / 2 + 1));
+        setClass3(Math.round((3 * (response.data.quantity * 100)) / 4 + 1));
+        setClass4(Math.round((response.data.quantity * 100) * 2 + 1));
         setRecoLoading(false);
       }
     })
