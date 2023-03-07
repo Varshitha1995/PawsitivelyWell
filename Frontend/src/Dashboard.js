@@ -145,8 +145,8 @@ const Dashboard = () => {
         <div className="center-page" >
           {isFoodTracking && <FoodTracking dogName={selectedDog}  dogId={selectedDogId} />}
           {isActivity && <ActivityTracking dogName={selectedDog}  dogId={selectedDogId} />}
-          {isMedicine && <MedicineTracking dogName={selectedDog} />}
-          {isGrooming && <GroomingTracking dogName={selectedDog} />}
+          {isMedicine && <MedicineTracking dogName={selectedDog}  dogId={selectedDogId} />}
+          {isGrooming && <GroomingTracking dogName={selectedDog}  dogId={selectedDogId} />}
           {isInfo && <InfoPage dogName={selectedDog} />}
           {isEdit && <EditPage dogName={selectedDog} dogId={selectedDogId} emailId={emailId}/>}
         </div>

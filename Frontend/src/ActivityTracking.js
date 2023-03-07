@@ -306,7 +306,7 @@ function SuggestionCard({ dogId, dogName }) {
     }, [dogId]);
     if (!isLoading) {
         return (
-            <div className="suggestion-card" style={{ marginTop: "2vw" }}>
+            <div className="suggestion-card" style={{ marginTop: "1vw" }}>
                 <h3>{dogName}'s Recommended Activity Routine</h3>
                 {isPup && <p>Since {dogName} is a pup, we recommend {pup} miles of walk per day according to their energy</p>}
                 {!isPup && <p>{mins} minutes or {miles} miles of walk is recommended per day</p>}

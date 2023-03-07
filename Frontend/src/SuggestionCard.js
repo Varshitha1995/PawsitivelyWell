@@ -24,7 +24,7 @@ useEffect(() => {
 }, [dogId]);
 if (!isLoading) {
   return (
-    <div className="suggestion-card" style={{marginTop:"2vw"}}>
+    <div className="suggestion-card" style={{marginTop:"1vw"}}>
       <h3>{dogName}'s Recommended Feeding Routine</h3>
       <p>{cups} cup(s) or {cals} calories of food is recommended per day</p>
       <p>Distribute the food in 2-3 feedings</p>
