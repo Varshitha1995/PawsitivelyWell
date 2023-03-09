@@ -14,6 +14,7 @@ const MedicineTracking = ({ dogName, dogId }) => {
     const [frequency, setFrequency] = useState();
     const [trackActive, setTrackActive] = useState(false);
     const [trackSuccess, setTrackSuccess] = useState(false);
+    const [predictions, setPredictions] = useState();
 
     const [trackedData, setTrackedData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -35,6 +36,7 @@ const MedicineTracking = ({ dogName, dogId }) => {
 
     const url = "http://localhost:8080/pawsitivelywell/dog/getVaccinationRoutine?" + params;
     const trackedDataUrl = "http://localhost:8080/pawsitivelywell/dog/getTrackedVaccination?" + params;
+    const predictionUrl = "http://localhost:8011/predict";
 
     useEffect(() => {
         setSuccess(false);
@@ -51,6 +53,7 @@ const MedicineTracking = ({ dogName, dogId }) => {
                 console.log(error);
             });
 
+
         axios.get(trackedDataUrl).then((response) => {
             if (response.data) {
                 var storedData = [];
@@ -66,6 +69,33 @@ const MedicineTracking = ({ dogName, dogId }) => {
             .catch(function (error) {
                 console.log(error);
             });
+
+        let data = {};
+        const dogDetailsUrl = "http://localhost:8080/pawsitivelywell/dog/getDog?" + params;
+        
+        axios.get(dogDetailsUrl).then((response) => {
+            if (response.data) {
+                data = JSON.stringify({
+                    "breed": response.data.breed,
+                    "age": response.data.age,
+                    "weight": response.data.weight
+                })
+            }
+        }).catch(function (error) {
+            console.log(error);
+        }).then(()=>{
+              axios.post(predictionUrl,data,{
+                headers: { 
+                    'Content-Type': 'application/json'
+                  }
+              }).then((response) => {
+                console.log(response.data.prediction);
+                setPredictions(response.data.prediction);
+              }).catch(function (error) {
+                console.log(error);
+            });
+    }
+    );
     }, [dogId]);
 
     function saveRoutine(event) {
@@ -238,7 +268,7 @@ const MedicineTracking = ({ dogName, dogId }) => {
                 <SuggestionCard dogId={dogId} dogName={dogName} />
             </div>
             <div className="card-element">
-                <SymptomSuggestionCard dogId={dogId} dogName={dogName} />
+                <SymptomSuggestionCard dogId={dogId} dogName={dogName} predictions={predictions}/>
             </div>
         </div>
     );
@@ -255,12 +285,12 @@ function SuggestionCard({ dogId, dogName }) {
     );
 }
 
-function SymptomSuggestionCard({ dogId, dogName }) {
+function SymptomSuggestionCard({ dogId, dogName, predictions }) {
     return (
         <div className="suggestion-card" style={{ marginTop: "-1vw" }}>
             <h3>Symptoms to look out for in {dogName}</h3>
             <p>{dogName} is susceptible to the following issues:</p>
-            <p>---To be retrieved from ML model---</p>
+            <p>{predictions}</p>
         </div>
     );
 }
