@@ -1,19 +1,21 @@
 #page-wrap {
     text-align: center;
     /* Prevent sidebar from showing a scrollbar on page */
-    overflow: auto;
+    /* overflow: auto; */
   }
 
   .vertical-menu {
     width: 13%;
     margin-top: 6vh;
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow-x: auto;
     float: left;
     height: 100vh;
     background-color: rgb(201, 224, 242);
-    text-align: center;
+    text-align: left;
     flex-grow: 1;
-    position: sticky;
+    position: fixed;
+    padding-bottom: 5vw;
     font-weight: bold;
 
   }
@@ -65,9 +67,11 @@
   .center-page{
     padding-top: 10vh;
     display: inline-block;
-    position: sticky;
+    /* position: sticky; */
     width: 65%;
+    margin-left: 13%;
     flex-grow: 1;
+    overflow: auto;
   }
 
   .leftIcon{
@@ -75,8 +79,6 @@
     margin: 10%;
     cursor: pointer;
     margin-top: 10%;
-    height: 100%;
-    width: 100%;
     border: 3px solid #001F3F;
     background-color: white;
   }
@@ -88,4 +90,25 @@
     margin-top: 10%;
     height: 100%;
     width: 100%;
+  }
+
+  [type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .AddDog{
+    background-color: transparent;
+    border: 1px solid transparent;
+  }
+
+  .AddDog:active {
+    background-color: rgb(0, 134, 230);
+    border: 2px solid #001F3F;
+  }
+  
+  .AddDog:hover {
+    background-color: rgb(154, 203, 239);
   }

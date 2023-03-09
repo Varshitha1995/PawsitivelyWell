@@ -1,26 +1,44 @@
 root {
-  
-    flex-grow: 1;
-    position: "sticky";
-  }
-  appName {
-    flex-grow: 1;
-    margin-left: 2%;
-    color: "#001F3F";
-  }
-  subtitle {
-    flex-grow: 1;
-    margin-left: 1%;
-    margin-right: 4%;
-  }
-  userIcon {
-    margin: 1%;
-    cursor: "pointer";
-  }
-  logo {
-    width: 5vh;
-    height: 5vh;
-    margin-right: 2%;
-  }
- 
-  
+
+  flex-grow: 1;
+  position: "sticky";
+}
+
+appName {
+  flex-grow: 1;
+  margin-left: 2%;
+  color: "#001F3F";
+}
+
+subtitle {
+  flex-grow: 1;
+  margin-left: 1%;
+  margin-right: 4%;
+}
+
+userIcon {
+  margin: 1%;
+  cursor: "pointer";
+}
+
+logo {
+  width: 5vh;
+  height: 5vh;
+  margin-right: 2%;
+}
+
+.button {
+  background-color: rgb(201, 224, 242);
+  border: none;
+  height: 12vw;
+  width: 12vw;
+}
+
+.button:active {
+  background-color: rgb(0, 134, 230);
+  border: 2px solid #001F3F;
+}
+
+.button:hover {
+  background-color: rgb(154, 203, 239);
+}
