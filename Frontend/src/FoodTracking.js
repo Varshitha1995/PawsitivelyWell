@@ -44,12 +44,12 @@ const FoodTracking = ({ dogName, dogId }) => {
       if (response.data) {
         setQuantity(response.data.quantity);
         setFrequency(response.data.frequency);
-
-        setCups(Math.round((response.data.quantity) * 100 + 1));
-        setClass1(Math.round((response.data.quantity * 100) / 4 + 1));
-        setClass2(Math.round((response.data.quantity * 100) / 2 + 1));
-        setClass3(Math.round((3 * (response.data.quantity * 100)) / 4 + 1));
-        setClass4(Math.round((response.data.quantity * 100) * 2 + 1));
+        let actualQuan = response.data.quantity * response.data.frequency
+        setCups(Math.round((actualQuan) * 100 + 1));
+        setClass1(Math.round((actualQuan * 100) / 4 + 1));
+        setClass2(Math.round((actualQuan * 100) / 2 + 1));
+        setClass3(Math.round((3 * (actualQuan * 100)) / 4 + 1));
+        setClass4(Math.round((actualQuan * 100) * 2 + 1));
         setRecoLoading(false);
       }
     })
