@@ -139,6 +139,9 @@ const FoodTracking = ({ dogName, dogId }) => {
       <div className="heading">
         <h1>{dogName}'s Food Tracking</h1>
       </div>
+      <div className="card-element">
+        <SuggestionCard dogId={dogId} dogName={dogName} />
+      </div>
       <div style={{ margin: "1vw", border: "2px solid #5B42F3", padding: "1vw", backgroundColor: "rgb(201, 224, 242)" }}>
         <button className={"collapsible" + routineActive ? "active" : ""} onClick={handleToggle}>
           <h2>Feeding Routine</h2>
@@ -281,9 +284,6 @@ const FoodTracking = ({ dogName, dogId }) => {
         <div style={{ float: "left", backgroundColor: "#000", height: "1em", width: "1em" }}></div>
         <p>&nbsp;: Avoid overfeeding to reduce these
         </p>
-      </div>
-      <div className="card-element">
-        <SuggestionCard dogId={dogId} dogName={dogName} />
       </div>
     </div>
   );

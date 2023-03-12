@@ -496,7 +496,7 @@ const AddDog = (props) => {
                 <Modal.Header closeButton={true} className="modalHeader">
                     <h3>{mode === "create" ? "Create Dog Profile" : "Add Existing Dog Profile"}</h3>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="modalBody">
                     {mode === "create" ? (renderCreate()) : (renderAdd())}
                 </Modal.Body>
             </Modal>

@@ -135,6 +135,10 @@ const ActivityTracking = ({ dogName, dogId }) => {
             <div className="heading">
                 <h1>{dogName}'s Activity Tracking</h1>
             </div>
+            
+            <div className="card-element">
+                <SuggestionCard dogId={dogId} dogName={dogName} />
+            </div>
             <div style={{ margin: "1vw", border: "2px solid #5B42F3", padding: "1vw", backgroundColor: "rgb(201, 224, 242)" }}>
                 <button className={"collapsible" + routineActive ? "active" : ""} onClick={handleToggle}>
                     <h2>Activity Routine</h2>
@@ -266,9 +270,6 @@ const ActivityTracking = ({ dogName, dogId }) => {
                 </p>
             </div>
 
-            <div className="card-element">
-                <SuggestionCard dogId={dogId} dogName={dogName} />
-            </div>
         </div>
     );
 }
@@ -307,10 +308,13 @@ function SuggestionCard({ dogId, dogName }) {
     if (!isLoading) {
         return (
             <div className="suggestion-card" style={{ marginTop: "1vw" }}>
-                <h3>{dogName}'s Recommended Activity Routine</h3>
-                {isPup && <p>Since {dogName} is a pup, we recommend {pup} miles of walk per day according to their energy</p>}
-                {!isPup && <p>{mins} minutes or {miles} miles of walk is recommended per day</p>}
-                <p>Try to distribute the activity time in multiple walks and play sessions!</p>
+                <h2>{dogName}'s Recommended Activity Routine</h2>
+                <img src='./images/dogwalk.png' style={{height:"8vw", float:"left", marginRight:"1vw", marginBottom:"1vw", paddingBottom:"1vw"}}></img>
+                <br/>
+                {isPup && <p><h2 style={{float:"inherit", color:"black", fontFamily:"serif"}}>{pup} miles </h2> of walk per day according to their energy</p>}
+                {!isPup && <div><h2 style={{float:"inherit", color:"black", fontFamily:"serif"}}>{mins} minutes</h2><p style={{float:"left"}}> or {miles} miles of walk per day</p></div>}
+                <br/>
+                <br/>
             </div>
         );
     } else {

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios";
+import "./FoodTracking.css"
 
 function SuggestionCard({ dogId, dogName }) {
 
@@ -24,11 +25,12 @@ useEffect(() => {
 }, [dogId]);
 if (!isLoading) {
   return (
-    <div className="suggestion-card" style={{marginTop:"1vw"}}>
-      <h3>{dogName}'s Recommended Feeding Routine</h3>
-      <p>{cups} cup(s) or {cals} calories of food is recommended per day</p>
-      <p>Distribute the food in 2-3 feedings</p>
-      <p>For pregnant or nursing dogs, we recommended free-choice feeding</p>
+    <div className="suggestion-card" /* style={{marginTop:"1vw"}} */>
+      <h2>{dogName}'s Feeding Recommendation</h2>
+      <img src='./images/dogbowl.avif' style={{height:"8vw", float:"left", marginRight:"1vw", marginBottom:"1vw", paddingBottom:"1vw"}}></img>
+      <h2 style={{float:"inherit", color:"black", fontFamily:"serif"}}>{cups} cup(s)</h2><p style={{float:"left"}}> or {cals} calories of food per day</p>
+      <br/>
+      <br/>
     </div>
   );
 }else {

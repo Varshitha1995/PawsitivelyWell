@@ -24,7 +24,7 @@
     margin-top: 10vh;
     overflow: auto;
     height: 100vh;
-    background-color: white;
+    /* background-color: white; */
     float: right;
     text-align: center;
     flex-grow: 1;
@@ -32,6 +32,9 @@
     flex-grow: 1;
     font-weight: bold;
     margin-right: 1vh;
+    background-image: url("../public/images/pawprint.png");
+    background-size: cover;
+    background-blend-mode: lighten;
   }
 
  .vertical-menu a {
