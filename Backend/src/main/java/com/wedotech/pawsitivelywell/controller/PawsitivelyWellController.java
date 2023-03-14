@@ -172,5 +172,29 @@ public class PawsitivelyWellController {
 		return dogDetailsService.trackVaccination(new Long(dogId), data);
 	}
 	
-
+	@GetMapping("dog/getGroomingRoutine")
+	public String getGroomingRoutine(@RequestParam String dogId) {
+		return dogDetailsService.getGroomingRoutine(new Long(dogId));
+	}
+	
+	@PostMapping("dog/saveGroomingRoutine")
+	public boolean saveGroomingRoutine(@RequestPart String dogId, @RequestPart String routine) {
+		return dogDetailsService.saveGroomingRoutine(new Long(dogId), routine);
+	}
+	
+	@GetMapping("dog/getTrackedGrooming")
+	public List<String> getTrackedGrooming(@RequestParam String dogId){
+		return dogDetailsService.getTrackedGrooming(new Long(dogId));
+	}
+	
+	@PostMapping("dog/trackGrooming")
+	public boolean trackGrooming(@RequestPart String dogId, @RequestPart String data) {
+		return dogDetailsService.trackGrooming(new Long(dogId), data);
+	}
+	
+	@GetMapping("dog/recommendedGrooming")
+	public String recommendedGrooming(@RequestParam String dogId) {
+		return dogDetailsService.getRecommendedGrooming(new Long(dogId));
+	}
+	
 }

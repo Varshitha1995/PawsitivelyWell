@@ -48,5 +48,15 @@ public interface DogDetailsService {
 
 	boolean trackVaccination(Long dogId, String data);
 
+	String getGroomingRoutine(Long dogId);
+
+	boolean saveGroomingRoutine(Long dogId, String routine);
+
+	List<String> getTrackedGrooming(Long dogId);
+
+	boolean trackGrooming(Long dogId, String data);
+
+	String getRecommendedGrooming(Long dogId);
+
 
 }

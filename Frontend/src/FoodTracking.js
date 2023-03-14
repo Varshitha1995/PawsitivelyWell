@@ -313,7 +313,7 @@ const FoodTracking = ({ dogName, dogId }) => {
         <img src='./images/success.png' style={{height:"8vw", float:"left", marginRight:"1vw", marginBottom:"1vw", paddingBottom:"1vw"}}></img>
         <br/>
         <h2 style={{float:"inherit", color:"black", fontFamily:"serif", marginTop:"-1vw"}}>Well done!</h2>
-        <p style={{float:"left", fontWeight: "bold"}}>{dogName}'s feeding routine is right on track.</p>
+        <p style={{float:"left", fontWeight: "bold", fontSize: "15pt"}}>{dogName}'s feeding routine is right on track.</p>
         <br/>
         <br/>
         <br/>
@@ -322,7 +322,7 @@ const FoodTracking = ({ dogName, dogId }) => {
         <img src='./images/hungrydog.png' style={{height:"8vw", float:"left", marginRight:"1vw", marginBottom:"1vw", paddingBottom:"1vw"}}></img>
         <br/>
         <h2 style={{float:"inherit", color:"black", fontFamily:"serif", marginTop:"-1vw"}}>Warning!</h2>
-        <p style={{float:"left", fontWeight: "bold"}}>{dogName} doesn't seem to be fed well. Kindly check the details.</p>
+        <p style={{float:"left", fontWeight: "bold", fontSize: "15pt"}}>{dogName} doesn't seem to be fed well. Kindly check the details.</p>
         <br/>
         <br/>
         <br/>
@@ -331,7 +331,7 @@ const FoodTracking = ({ dogName, dogId }) => {
         <img src='./images/fatdog.png' style={{height:"8vw", float:"left", marginRight:"1vw", marginBottom:"1vw", paddingBottom:"1vw"}}></img>
         <br/>
         <h2 style={{float:"inherit", color:"black", fontFamily:"serif", marginTop:"-1vw"}}>Warning!</h2>
-        <p style={{float:"left", fontWeight: "bold"}}>{dogName} is being overfed!</p>
+        <p style={{float:"left", fontWeight: "bold", fontSize: "15pt"}}>{dogName} is being overfed!</p>
         <br/>
         <br/>
         <br/>
