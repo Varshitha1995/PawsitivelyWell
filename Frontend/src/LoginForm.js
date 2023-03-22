@@ -291,7 +291,7 @@ handleRegister = (event) => {
           <Modal.Header closeButton={true} className="modalHeader">
             <h3>{ this.state.mode === "login" ? "Login" : "Register" }</h3>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className="modalBody">
             {this.state.mode === "login" ? (this.renderLogin()) : (this.renderRegister())}
           </Modal.Body>
         </Modal>

@@ -24,6 +24,9 @@ const FoodTracking = ({ dogName, dogId }) => {
   const [class3, setClass3] = useState(0);
   const [class4, setClass4] = useState(0);
   const [recoLoading, setRecoLoading] = useState(true);
+  const [underfed, setUnderfed] = useState(false);
+  const [wellfed, setWellfed] = useState(false);
+  const [overfed, setOverfed] = useState(false);
 
   function handleToggle() {
     setRoutineActive(!routineActive);
@@ -39,7 +42,11 @@ const FoodTracking = ({ dogName, dogId }) => {
   const trackedDataUrl = "http://localhost:8080/pawsitivelywell/dog/getTrackedFood?" + params;
   useEffect(() => {
     setSuccess(false);
+    setRecoLoading(false);
     setTrackSuccess(false);
+    setUnderfed(false);
+    setWellfed(false);
+    setOverfed(false);
     axios.get(url).then((response) => {
       if (response.data) {
         setQuantity(response.data.quantity);
@@ -69,7 +76,7 @@ const FoodTracking = ({ dogName, dogId }) => {
           } else
             storedData.push({ "date": formatteddate, "count": obj.quantity * 100 })
         });
-        setTrackedData(storedData);
+        setTrackedData(storedData)
         setLoading(false);
       }
     })
@@ -124,6 +131,23 @@ const FoodTracking = ({ dogName, dogId }) => {
     setSuccess(false);
   }
 
+  function setInsights(){
+    if(!loading && !recoLoading){
+      let avg = 0;
+      for(let data in trackedData) {
+        avg +=trackedData[data].count
+      }
+      avg = avg/trackedData.length;
+      if(avg<class3)
+        setUnderfed(true);
+      else if(class3<=avg && avg<=cups+class1)
+        setWellfed(true);
+      else
+        setOverfed(true);
+    }
+  }
+  
+
   var colors = {}
   colors[0] = "#e3fde4"
   colors[class1] = "#4ae54a"
@@ -138,6 +162,9 @@ const FoodTracking = ({ dogName, dogId }) => {
     <div className="container">
       <div className="heading">
         <h1>{dogName}'s Food Tracking</h1>
+      </div>
+      <div className="card-element">
+        <SuggestionCard dogId={dogId} dogName={dogName} />
       </div>
       <div style={{ margin: "1vw", border: "2px solid #5B42F3", padding: "1vw", backgroundColor: "rgb(201, 224, 242)" }}>
         <button className={"collapsible" + routineActive ? "active" : ""} onClick={handleToggle}>
@@ -242,7 +269,7 @@ const FoodTracking = ({ dogName, dogId }) => {
           </form>
         </div>
       </div>
-      <div style={{ margin: "1vw", border: "2px dashed #5B42F3", padding: "1vw" }}>
+      <div style={{ margin: "1vw", border: "2px dashed #5B42F3", padding: "1vw" }} onMouseMove={setInsights}>
         {!loading && !recoLoading && <HeatMap
           value={trackedData}
           startDate={new Date("2023/02/01")}
@@ -282,9 +309,33 @@ const FoodTracking = ({ dogName, dogId }) => {
         <p>&nbsp;: Avoid overfeeding to reduce these
         </p>
       </div>
-      <div className="card-element">
-        <SuggestionCard dogId={dogId} dogName={dogName} />
-      </div>
+      {wellfed && <div className="suggestion-card" style={{backgroundColor: "#4BB543"}}>
+        <img src='./images/success.png' style={{height:"8vw", float:"left", marginRight:"1vw", marginBottom:"1vw", paddingBottom:"1vw"}}></img>
+        <br/>
+        <h2 style={{float:"inherit", color:"black", fontFamily:"serif", marginTop:"-1vw"}}>Well done!</h2>
+        <p style={{float:"left", fontWeight: "bold", fontSize: "15pt"}}>{dogName}'s feeding routine is right on track.</p>
+        <br/>
+        <br/>
+        <br/>
+        </div>}
+      {underfed && <div className="suggestion-card" style={{backgroundColor: "#FFCC00"}}>
+        <img src='./images/hungrydog.png' style={{height:"8vw", float:"left", marginRight:"1vw", marginBottom:"1vw", paddingBottom:"1vw"}}></img>
+        <br/>
+        <h2 style={{float:"inherit", color:"black", fontFamily:"serif", marginTop:"-1vw"}}>Warning!</h2>
+        <p style={{float:"left", fontWeight: "bold", fontSize: "15pt"}}>{dogName} doesn't seem to be fed well. Kindly check the details.</p>
+        <br/>
+        <br/>
+        <br/>
+        </div>}
+      {overfed && <div className="suggestion-card" style={{backgroundColor: "#FFCC00"}}>
+        <img src='./images/fatdog.png' style={{height:"8vw", float:"left", marginRight:"1vw", marginBottom:"1vw", paddingBottom:"1vw"}}></img>
+        <br/>
+        <h2 style={{float:"inherit", color:"black", fontFamily:"serif", marginTop:"-1vw"}}>Warning!</h2>
+        <p style={{float:"left", fontWeight: "bold", fontSize: "15pt"}}>{dogName} is being overfed!</p>
+        <br/>
+        <br/>
+        <br/>
+        </div>}
     </div>
   );
 };

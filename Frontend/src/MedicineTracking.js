@@ -153,6 +153,12 @@ const MedicineTracking = ({ dogName, dogId }) => {
             <div className="heading">
                 <h1>{dogName}'s Medicine Tracking</h1>
             </div>
+            <div className="card-element">
+                <SuggestionCard dogId={dogId} dogName={dogName} />
+            </div>
+            <div className="card-element">
+                <SymptomSuggestionCard dogId={dogId} dogName={dogName} predictions={predictions}/>
+            </div>
             <div style={{ margin: "1vw", border: "2px solid #5B42F3", padding: "1vw", backgroundColor: "rgb(201, 224, 242)" }}>
                 <button className={"collapsible" + routineActive ? "active" : ""} onClick={handleToggle}>
                     <h2>Vaccine Routine</h2>
@@ -264,33 +270,32 @@ const MedicineTracking = ({ dogName, dogId }) => {
                 </li>
                 {!loading && trackedData.map((data) => <ListTrackedVaccines key={data.vName + data.date} vName={data.vName} date={data.date} />)}
             </ul>
-            <div className="card-element">
-                <SuggestionCard dogId={dogId} dogName={dogName} />
-            </div>
-            <div className="card-element">
-                <SymptomSuggestionCard dogId={dogId} dogName={dogName} predictions={predictions}/>
-            </div>
         </div>
     );
 }
 
 function SuggestionCard({ dogId, dogName }) {
     return (
-        <div className="suggestion-card" style={{ marginTop: "2vw" }}>
-            <h3>{dogName}'s Recommended Vaccination Routine</h3>
-            <p>Rabies vaccine is recommended every year</p>
+        <div className="suggestion-card" /* style={{ marginTop: "2vw" }} */>
+            <h2>{dogName}'s Recommended Vaccination Routine</h2>
+            <img src='./images/injection.png' style={{height:"8vw", float:"left", marginRight:"1vw", marginBottom:"1vw", paddingBottom:"1vw"}}></img>
+            <br/>
+            <p><h2 style={{float:"inherit", color:"black", fontFamily:"serif"}}>Rabies</h2> vaccine is recommended every year</p>
             <p>Leptospirosis, Lyme, Canine influenza are also a vital part of {dogName}'s care routine</p>
-            <p>DAP is recommended only for pups upto 3 months</p>
+            <br/>
         </div>
     );
 }
 
 function SymptomSuggestionCard({ dogId, dogName, predictions }) {
     return (
-        <div className="suggestion-card" style={{ marginTop: "-1vw" }}>
-            <h3>Symptoms to look out for in {dogName}</h3>
-            <p>{dogName} is susceptible to the following issues:</p>
-            <p>{predictions}</p>
+        <div className="suggestion-card" /* style={{ marginTop: "-1vw" }} */>
+            <h2>Symptoms to look out for in {dogName}</h2>
+            <img src='./images/sickdog.png' style={{height:"8vw", float:"left", marginRight:"1vw", marginBottom:"1vw", paddingBottom:"1vw"}}></img>
+            <h2 style={{float:"inherit", color:"black", fontFamily:"serif"}}>{predictions}</h2>
+            <br/>
+            <br/>
+            <br/>
         </div>
     );
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.google.gson.JsonObject;
 import com.wedotech.pawsitivelywell.model.DogDetails;
 
 @Service
@@ -47,6 +46,16 @@ public interface DogDetailsService {
 	List<String> getTrackedVaccination(Long dogId);
 
 	boolean trackVaccination(Long dogId, String data);
+
+	String getGroomingRoutine(Long dogId);
+
+	boolean saveGroomingRoutine(Long dogId, String routine);
+
+	List<String> getTrackedGrooming(Long dogId);
+
+	boolean trackGrooming(Long dogId, String data);
+
+	String getRecommendedGrooming(Long dogId);
 
 
 }

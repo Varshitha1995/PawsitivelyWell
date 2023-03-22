@@ -12,17 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.wedotech.pawsitivelywell.model.DogDetails;
 import com.wedotech.pawsitivelywell.model.UserDetails;
 import com.wedotech.pawsitivelywell.service.DogDetailsService;
+import com.wedotech.pawsitivelywell.service.InformationService;
 import com.wedotech.pawsitivelywell.service.UserDetailsService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -32,6 +30,8 @@ public class PawsitivelyWellController {
 	UserDetailsService userDetailsService;
 	@Autowired
 	DogDetailsService dogDetailsService;
+	@Autowired
+	InformationService informationService;
 
 	@PostMapping("user/login")
 	public boolean validateLogin(@RequestParam String emailId, @RequestParam String password) {
@@ -172,5 +172,35 @@ public class PawsitivelyWellController {
 		return dogDetailsService.trackVaccination(new Long(dogId), data);
 	}
 	
-
+	@GetMapping("dog/getGroomingRoutine")
+	public String getGroomingRoutine(@RequestParam String dogId) {
+		return dogDetailsService.getGroomingRoutine(new Long(dogId));
+	}
+	
+	@PostMapping("dog/saveGroomingRoutine")
+	public boolean saveGroomingRoutine(@RequestPart String dogId, @RequestPart String routine) {
+		return dogDetailsService.saveGroomingRoutine(new Long(dogId), routine);
+	}
+	
+	@GetMapping("dog/getTrackedGrooming")
+	public List<String> getTrackedGrooming(@RequestParam String dogId){
+		return dogDetailsService.getTrackedGrooming(new Long(dogId));
+	}
+	
+	@PostMapping("dog/trackGrooming")
+	public boolean trackGrooming(@RequestPart String dogId, @RequestPart String data) {
+		return dogDetailsService.trackGrooming(new Long(dogId), data);
+	}
+	
+	@GetMapping("dog/recommendedGrooming")
+	public String recommendedGrooming(@RequestParam String dogId) {
+		return dogDetailsService.getRecommendedGrooming(new Long(dogId));
+	}
+	
+	
+	@GetMapping("info")
+	public String getInfo(@RequestParam String type) {
+		return informationService.getInformation(type);
+	}
+	
 }

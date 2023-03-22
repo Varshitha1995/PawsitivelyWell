@@ -76,7 +76,7 @@ const UserEdit = (props) => {
                 <Modal.Header closeButton={true} className="modalHeader">
                     <h3>Edit User Details</h3>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="modalBody">
                     <div>
                         <div>
                             <form className="form-horizontal form-loanable">

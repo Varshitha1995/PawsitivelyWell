@@ -1978,4 +1978,1169 @@ public class DogDetailsServiceImpl implements DogDetailsService {
 		
 		return activityDetails.get(breed).getAsJsonObject();
 	}
+
+	@Override
+	public String getGroomingRoutine(Long dogId) {
+		DogRoutine routine = dogRoutineRepository.getRoutine(dogId);
+		if(routine == null || routine.getGroomingRoutine() == null)
+			return null;
+		return routine.getGroomingRoutine();
+	}
+
+	@Override
+	public boolean saveGroomingRoutine(Long dogId, String routine) {
+		DogRoutine dogRoutine = dogRoutineRepository.getRoutine(dogId);
+		if(dogRoutine==null) {
+			DogDetails dog = dogRepository.getById(dogId);
+			if(dog==null)
+				return false;
+			dogRoutine = new DogRoutine();
+			dogRoutine.setDog(dog);
+		}
+		dogRoutine.setGroomingRoutine(routine);
+		dogRoutineRepository.save(dogRoutine);
+		return true;
+	}
+
+	@Override
+	public List<String> getTrackedGrooming(Long dogId) {
+		List<Tracking> tracking = dogTrackingRepository.getTracking(dogId, "grooming");
+		List<String> groomList = new ArrayList<>();
+		for(Tracking groom: tracking) {
+			groomList.add(groom.getDataString());
+		}
+		return groomList;
+	}
+
+	@Override
+	public boolean trackGrooming(Long dogId, String data) {
+		Tracking tracking = new Tracking();
+		DogDetails dog = dogRepository.getById(dogId);
+		if(dog==null)
+			return false;
+		tracking.setDog(dog);
+		tracking.setType("grooming");
+		tracking.setDataString(data);
+		dogTrackingRepository.save(tracking);
+		return true;
+	}
+
+	@Override
+	public String getRecommendedGrooming(Long dogId) {
+		String breed = dogRepository.getById(dogId).getBreed();
+		JsonObject groomingDetails = new JsonObject();
+		
+		JsonObject grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Affenpinscher", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Afghan Hound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Airedale Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Akita", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Alaskan Malamute", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("American Bulldog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("American English Coonhound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("American Eskimo Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("American Foxhound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("American Hairless Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("American Leopard Hound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("American Staffordshire Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("American Water Spaniel", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Anatolian Shepherd Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Appenzeller Sennenhund", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Australian Cattle Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Australian Kelpie", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Australian Shepherd", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Australian Stumpy Tail Cattle Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Australian Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Azawakh", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Barbet", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Basenji", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-8");
+		groomingDetails.add("Basset Fauve de Bretagne", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Basset Hound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Bavarian Mountain Scent Hound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Beagle", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Bearded Collie", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Beauceron", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Bedlington Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Belgian Laekenois", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Belgian Malinois", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Belgian Sheepdog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Belgian Tervuren", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Bergamasco Sheepdog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Berger Picard", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Bernese Mountain Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Bichon Frise", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "2-3");
+		groomingDetails.add("Biewer Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Black and Tan Coonhound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Black Russian Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Bloodhound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Bluetick Coonhound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Boerboel", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Bohemian Shepherd", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Bolognese", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Border Collie", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Border Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Borzoi", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Boston Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Bouvier des Flandres", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Boxer", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Boykin Spaniel", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Bracco Italiano", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Braque du Bourbonnais", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Braque Francais Pyrenean", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Briard", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Brittany", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Broholmer", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Brussels Griffon", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Bull Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Bulldog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Bullmastiff", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Cairn Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-8");
+		groomingDetails.add("Canaan Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Cane Corso", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Cardigan Welsh Corgi", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Carolina Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Catahoula Leopard Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Caucasian Shepherd Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Cavalier King Charles Spaniel", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Central Asian Shepherd Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Cesky Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Chesapeake Bay Retriever", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Chihuahua", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Chinese Crested", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Chinese Shar-Pei", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Chinook", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Chow Chow", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Cirneco dellEtna", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Clumber Spaniel", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Cocker Spaniel", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Collie", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "2-4");
+		groomingDetails.add("Coton de Tulear", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Croatian Sheepdog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Curly-Coated Retriever", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Czechoslovakian Vlcak", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Dachshund", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8");
+		groomingDetails.add("Dalmatian", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Dandie Dinmont Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Danish-Swedish Farmdog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Deutscher Wachtelhund", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Doberman Pinscher", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Dogo Argentino", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-8");
+		groomingDetails.add("Dogue de Bordeaux", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Drentsche Patrijshond", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Drever", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-8");
+		groomingDetails.add("Dutch Shepherd", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("English Cocker Spaniel", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("English Foxhound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("English Setter", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("English Springer Spaniel", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("English Toy Spaniel", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Entlebucher Mountain Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Estrela Mountain Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "2-4");
+		groomingDetails.add("Eurasier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Field Spaniel", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12-16");
+		groomingDetails.add("Finnish Lapphund", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12-16");
+		groomingDetails.add("Finnish Spitz", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Flat-Coated Retriever", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10");
+		groomingDetails.add("French Bulldog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("French Spaniel", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10");
+		groomingDetails.add("German Longhaired Pointer", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("German Pinscher", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("German Shepherd Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-8");
+		groomingDetails.add("German Shorthaired Pointer", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12-16");
+		groomingDetails.add("German Spitz", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("German Wirehaired Pointer", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Giant Schnauzer", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "2-4");
+		groomingDetails.add("Glen of Imaal Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Golden Retriever", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10");
+		groomingDetails.add("Gordon Setter", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Grand Basset Griffon Vendeen", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Great Dane", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Great Pyrenees", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-8");
+		groomingDetails.add("Greater Swiss Mountain Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Greyhound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Hamiltonstovare", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Hanoverian Scenthound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Harrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Havanese", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "2-4");
+		groomingDetails.add("Hokkaido", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Hovawart", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Ibizan Hound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Icelandic Sheepdog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Irish Red and White Setter", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Irish Setter", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Irish Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Irish Water Spaniel", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Irish Wolfhound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Italian Greyhound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Jagdterrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Japanese Chin", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Japanese Spitz", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-8");
+		groomingDetails.add("Jindo", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Kai Ken", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Karelian Bear Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Keeshond", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Kerry Blue Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Kishu Ken", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Komondor", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Kromfohrlander", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Kuvasz", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Labrador Retriever", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Lagotto Romagnolo", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Lakeland Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Lancashire Heeler", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Lapponian Herder", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Leonberger", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Lhasa Apso", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Lowchen", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Maltese", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Manchester Terrier (Standard)", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Manchester Terrier (Toy)", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Mastiff", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Miniature American Shepherd", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Miniature Bull Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Miniature Pinscher", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Miniature Schnauzer", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Mountain Cur", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Mudi", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Neapolitan Mastiff", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Nederlandse Kooikerhondje", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Newfoundland", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Norfolk Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Norrbottenspets", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Norwegian Buhund", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Norwegian Elkhound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Norwegian Lundehund", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Norwich Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Nova Scotia Duck Tolling Retriever", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Old English Sheepdog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Otterhound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Papillon", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Parson Russell Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10");
+		groomingDetails.add("Pekingese", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-8");
+		groomingDetails.add("Pembroke Welsh Corgi", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Perro de Presa Canario", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Peruvian Inca Orchid", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Petit Basset Griffon Vendeen", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Pharaoh Hound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "2-4");
+		groomingDetails.add("Plott Hound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Pointer", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Polish Lowland Sheepdog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Pomeranian", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Poodle (Miniature)", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Poodle (Standard)", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Poodle (Toy)", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Porcelaine", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "2-4");
+		groomingDetails.add("Portuguese Podengo", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "2-4");
+		groomingDetails.add("Portuguese Podengo Pequeno", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Portuguese Pointer", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "2-4");
+		groomingDetails.add("Portuguese Sheepdog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Portuguese Water Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Pudelpointer", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Pug", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Puli", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Pumi", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Pyrenean Mastiff", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Pyrenean Shepherd", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Rafeiro do Alentejo", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Rat Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Redbone Coonhound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Rhodesian Ridgeback", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Romanian Mioritic Shepherd Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Rottweiler", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Russell Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Russian Toy", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "2-4");
+		groomingDetails.add("Russian Tsvetnaya Bolonka", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Saint Bernard", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Saluki", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Samoyed", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Schapendoes", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Schipperke", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Scottish Deerhound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Scottish Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Sealyham Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Segugio Italiano", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Shetland Sheepdog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10");
+		groomingDetails.add("Shiba Inu", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Shih Tzu", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "2-4");
+		groomingDetails.add("Shikoku", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Siberian Husky", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-5");
+		groomingDetails.add("Silky Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-5");
+		groomingDetails.add("Skye Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Sloughi", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Slovakian Wirehaired Pointer", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Slovensky Cuvac", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Slovensky Kopov", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Borzoi", grooming);
+		groomingDetails.add("Small Munsterlander Pointer", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Smooth Fox Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Soft Coated Wheaten Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Spanish Mastiff", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Spanish Water Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10");
+		groomingDetails.add("Spinone Italiano", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Stabyhoun", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10");
+		groomingDetails.add("Staffordshire Bull Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Standard Schnauzer", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Sussex Spaniel", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12-16");
+		groomingDetails.add("Swedish Lapphund", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Swedish Vallhund", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Taiwan Dog", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Teddy Roosevelt Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Thai Ridgeback", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Tibetan Mastiff", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Tibetan Spaniel", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Tibetan Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "12");
+		groomingDetails.add("Tornjak", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Tosa", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Toy Fox Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Transylvanian Hound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Treeing Tennessee Brindle", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-12");
+		groomingDetails.add("Treeing Walker Coonhound", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-8");
+		groomingDetails.add("Vizsla", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Weimaraner", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Welsh Springer Spaniel", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Welsh Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("West Highland White Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "2-4");
+		groomingDetails.add("Wetterhoun", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "10-12");
+		groomingDetails.add("Whippet", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Wire Fox Terrier", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Wirehaired Pointing Griffon", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "8-10");
+		groomingDetails.add("Wirehaired Vizsla", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-10");
+		groomingDetails.add("Working Kelpie", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Xoloitzcuintli", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "4-6");
+		groomingDetails.add("Yakutian Laika", grooming);
+		
+		grooming = new JsonObject();
+		grooming.addProperty("grooming",  "6-8");
+		groomingDetails.add("Yorkshire Terrier", grooming);
+		
+		return groomingDetails.get(breed).getAsJsonObject().get("grooming").getAsString();
+	}
+	
+	
 }

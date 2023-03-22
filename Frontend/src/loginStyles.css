@@ -10,11 +10,13 @@
 }
 
 .loginBox{
-  margin-top: 6vh;
+  margin-top: 8vh;
+  backdrop-filter: blur(15px);
 }
 
 .modalHeader{
   height: 7vh;
+  background-image: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB);
 }
 
 .col-sm-5{
@@ -33,6 +35,7 @@ fieldset{
 }
 h3{
   padding-top: 2vh;
+  color: white;
 }
 
 input::-webkit-outer-spin-button,
@@ -64,4 +67,10 @@ input::-webkit-inner-spin-button {
   touch-action: manipulation;
   white-space: nowrap;
   cursor: pointer;
+}
+
+.modalBody{
+  background-image: url("../public/images/pawprint.png");
+  background-size: cover;
+  background-blend-mode: lighten;
 }
